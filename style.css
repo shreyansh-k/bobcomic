@@ -60,6 +60,7 @@ a {
   transition: color 0.3s ease; 
 }
 a:hover {
-    color: #4caf50;
+    color: #030503;
     cursor: pointer;
+
 }
