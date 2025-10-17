@@ -2,13 +2,25 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #7880ec;
+    background-color: #ffffff;
     color: #333;
 
 }
 
 header {
-    background-color: #4caf50;
+    height: 50vw;
+   
+    text-align: center;
+    color: rgb(5, 2, 2);
+    padding: 10px 0;
+    text-align: center;
+
+
+}
+.home-page header {
+    height: 50vw;
+   
+    text-align: center;
     color: rgb(5, 2, 2);
     padding: 10px 0;
     text-align: center;
@@ -55,13 +67,13 @@ section {
 
 a {
   text-decoration: none;         /* Removes underline */
-  color: rgb(255, 255, 255);                /* Modern blue tone */
+  color: rgb(21, 255, 0);                /* Modern blue tone */
   font-weight: 500;              /* Slightly bold */
   transition: color 0.3s ease; 
 }
 a:hover {
-    color: rgb(3,5,3);
+    color: #ffdd57;               /* Bright yellow on hover */
     cursor: pointer;
-
 }
+
 
