@@ -8,7 +8,7 @@ body {
 }
 
 header {
-    background-image: url('files/bg.jpg');
+    background-image: url('bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -22,7 +22,7 @@ header {
 
 }
 .home-page header {
-    background-image: url('files/bg.jpg');
+    background-image: url('bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -82,4 +82,5 @@ a {
 a:hover {
     color: #ffdd57;               /* Bright yellow on hover */
     cursor: pointer;
+
 }
