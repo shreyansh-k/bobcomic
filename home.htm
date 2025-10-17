@@ -6,37 +6,34 @@
   <title>Official Bob Comic Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.png" type="image/png">
-  <h2>Our line of books is down below ⬇️</h2>
-  <h4>These books are downloadable in PDF format</h4>
-    <nav>
-    <a href="index.html">About us</a>
-    <a href="games.htm">Our games!</a>
-  </nav>
+  <link rel="icon" href="files/favicon.jpg" type="image/png">
+  <h2>Download books for offline reading:</h2>
+
   <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST'" id="proButton">Download Lavik The Businessman comic!</button>
   <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo'" id="proButton">Download Bob is Back in Home comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1KBT-jace5ZpvOTWfd1xW7-UTRAUhgyZc'" id="proButton">Download The Fruit World comic!</button>  
+    
   </button>
   <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3'" id="proButton">Download The Stickman Comic!</button>
-  <button onclikc="window.location.href='https://drive.google.com/uc?export=download&id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX'" id="proButton">Download Bob is Back in Style comic!</button>
-  <h3>Don't wanna download? Try these online links below!</h3>
-  <p><a href="https://drive.google.com/file/d/1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST/view?usp=sharing">Read Lavik the Businessman online</a></p>
-  <p><a href="https://drive.google.com/file/d/1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3/view?usp=sharing">Read The Stickman Comic online</a></p>
-  <p><a href="https://drive.google.com/file/d/1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo/view?usp=sharing">Read Bob is Back in Home online</a></p>
-  <p><a href="https://drive.google.com/file/d/19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX/view?usp=sharing">Read Bob is Back in Style online</a></p>
-  <p><a href="https://drive.google.com/file/d/1KBT-jace5ZpvOTWfd1xW7-UTRAUhgyZc/view?usp=sharing">Read The Fruit World online</a></p>
+  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX'" id="proButton">Download Bob is Back in Style comic!</button>
+
+  <button onclick="loadPDF('files/ltb.pdf')" id="proButton">Read Lavik The Businessman comic online!</button>
+  <button onclick="loadPDF('files/bibb.pdf')" id="proButton">Read Bob is Back in Home comic online!</button>
+  <button onclick="loadPDF('files/stickman.pdf')" id="proButton">Read The Stickman Comic online!</button>
+  <button onclick="loadPDF('files/bbis.pdf')" id="proButton">Read Bob is back in style online!</button>
+  <iframe id="pdf-frame" width="100%" height="600px"></iframe>
+  <script>
+    function loadPDF(pdfFile) {
+      document.getElementById('pdf-frame').src = pdfFile;
+    }
+  </script>
   <h3>And there's more coming soon!</h3>
   </head>
-
+  <nav>
+    <a href="index.html">About us</a>
+  </nav>
 
   <header>
-    <h2>Our other comics, which are a work in progress ⬇️</h2>
-    <h5>We have started a new series, called Physics Reimagined, which combines the fun of Cartoon physics with the graphic illustrations of comics!</h5>
-    <img>src="PhysicsReimagined.jpg" alt="Physics Reimagined cover" width="500" height="400"</img>
-    
-
+    <h2>Our other comics which are a work in progress ⬇️</h2>
+    <h5>There are currently no other Bob comics work in progress</h5>
+    <h5>A new series has </h5>
 </header>
-
-
-
-
