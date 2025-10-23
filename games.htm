@@ -10,11 +10,221 @@
     <h1>Our exciting bob games!</h1>
     <h2>Catch Bob!</h2>
     <iframe src="https://turbowarp.org/1229762138/embed" width="482" height="412" allowtransparency="true" frameborder="5" scrolling="no" allowfullscreen="" style="color-scheme: auto"></iframe>
+    <h2>Police Dash!</h2>
+    <body>
+        <!DOCTYPE html>
+<html>
+<head>
+  <title>🚗 Bob's Escape</title>
+  <style>
+    canvas {
+      background: #f0f0f0;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+    #menuContainer {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .button {
+      background: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+<canvas id="game" width="800" height="200"></canvas>
+<div id="menuContainer">
+  <button id="startButton" class="button">Start Game</button>
+</div>
 
+<script>
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+const menuContainer = document.getElementById("menuContainer");
+const startButton = document.getElementById("startButton");
+
+// Game state
+let gameRunning = false;
+let currentLevel = 1;
+let gameSpeed = 1;
+
+// Initial positions (right side)
+let bobX = canvas.width - 100;
+let bobY = 150;
+let policeX = canvas.width - 50;
+let spikes = [];
+let spacing = 1; // Minimum space between spikes
+let startX = bobX - 100;
+
+for (let i = 0; i < 5; i++) {
+  let offset = Math.random() * 50; // Random offset for spike position
+  spikes.push(startX - i * spacing - offset); // Adds slight randomness
+}
+
+let jumping = false;
+let velocityY = 0;
+
+// Handle jump (keyboard)
+document.addEventListener("keydown", (e) => {
+  if (gameRunning && (e.code === "Space" || e.code === "ArrowUp") && !jumping) {
+    jumping = true;
+    velocityY = -10;
+  }
+});
+
+// Handle jump (touch)
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault(); // Prevent scrolling
+  if (gameRunning && !jumping) {
+    jumping = true;
+    velocityY = -10;
+  }
+});
+
+// Handle jump (mouse click)
+canvas.addEventListener("click", (e) => {
+  if (gameRunning && !jumping) {
+    jumping = true;
+    velocityY = -10;
+  }
+});
+
+function drawEmoji(emoji, x, y) {
+  ctx.font = "48px Segoe UI Emoji";
+  ctx.fillText(emoji, x, y);
+}
+
+function resetGame() {
+  currentLevel = 1;
+  gameSpeed = 1;
+  resetLevel();
+}
+
+function resetLevel() {
+  bobX = canvas.width - 100;
+  bobY = 150;
+  policeX = canvas.width - 50;
+  spikes = [];
+  startX = bobX - 100;
+  
+  // Add more spikes for higher levels
+  const numSpikes = 5 + Math.floor(currentLevel / 2);
+  spacing = Math.max(90, 135 - (currentLevel * 5)); // Decrease spacing with level
+  
+  for (let i = 0; i < numSpikes; i++) {
+    let offset = Math.random() * 50;
+    spikes.push(startX - i * spacing - offset);
+  }
+  
+  jumping = false;
+  velocityY = 0;
+  gameSpeed = 1 + (currentLevel * 0.2); // Increase speed with level
+}
+
+function drawLevel() {
+  ctx.font = "24px Arial";
+  ctx.fillStyle = "black";
+  ctx.fillText(`Level ${currentLevel}`, 20, 30);
+}
+
+function update() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  drawLevel();
+
+  // Gravity
+  if (jumping) {
+    bobY += velocityY;
+    velocityY += 0.5;
+    if (bobY >= 150) {
+      bobY = 150;
+      jumping = false;
+    }
+  }
+
+  // Move left with speed based on level
+  bobX -= 2.5 * gameSpeed;
+  policeX -= 2.2 * gameSpeed;
+
+  // Draw Bob 🚗
+  drawEmoji("🚗", bobX, bobY);
+
+  // Draw Police 🚓
+  drawEmoji("🚓", policeX, 150);
+
+  // Draw Spikes 🔺
+  for (let x of spikes) {
+    drawEmoji("🔺", x, 150);
+    if (Math.abs(bobX - x) < 30 && bobY === 150) {
+      gameRunning = false;
+      if (confirm("💥 Bob hit a spike! Game Over.\nWould you like to play again?")) {
+        resetGame();
+        startGame();
+      } else {
+        menuContainer.style.display = "block";
+      }
+      return;
+    }
+  }
+
+  // Collision with police
+  if (Math.abs(bobX - policeX) < 30) {
+    gameRunning = false;
+    if (confirm("🚓 caught Bob! Game Over.\nWould you like to play again?")) {
+      resetGame();
+      startGame();
+    } else {
+      menuContainer.style.display = "block";
+    }
+    return;
+  }
+
+  // Win condition
+  if (bobX < 70) {
+    currentLevel++;
+    alert(`🎉 Level ${currentLevel-1} completed! Moving to level ${currentLevel}`);
+    resetLevel();
+  }
+
+  requestAnimationFrame(update);
+}
+
+function startGame() {
+  gameRunning = true;
+  menuContainer.style.display = "none";
+  resetLevel();
+  update();
+}
+
+// Start button click handler
+startButton.addEventListener("click", startGame);
+
+// Draw initial empty canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+</script>
+</body>
+</html>
+    </body>
+                        
 
 
     
 </header>
+
 
 
 
