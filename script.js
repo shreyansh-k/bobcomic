@@ -1,14 +1,4 @@
-// Initialize Firebase
-const firebaseConfig = {
-  // You'll need to replace these with your Firebase project details
-  apiKey: "AIzaSyDKgqMN2YiswpsrAWawodhuLF27aoB3p64",
-  authDomain: "meme-51314.firebaseapp.com",
-  databaseURL: "https://meme-51314-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "meme-51314",
-  storageBucket: "meme-51314.firebasestorage.app",
-  messagingSenderId: "604768808089",
-  appId: "1:604768808089:web:26134d5a0a0c92c6065c08"
-};
+    // Firebase config is loaded from config.js
 
 // Initialize Firebase
 let messagesRef;
@@ -69,8 +59,8 @@ gifBtn.addEventListener("click", () => {
 gifSearch.addEventListener("input", async () => {
   console.log("Searching for GIFs...");
   const query = gifSearch.value;
-  const apiKey = "coVc1IHu97MvJb0pN3BzBXqN3uWiLLwA";
-  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=10`;
+  
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${query}&limit=10`;
 
   const res = await fetch(url);
   const data = await res.json();
