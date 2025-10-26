@@ -1,39 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Official Bob Comic Website</title>
-  <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="favicon.jpg" type="image/png">
-  <h2>Download books for offline reading:</h2>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bob Comic Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="files/favicon.jpg" type="image/jpg" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fas fa-book-open"></i>
+      <span>Bob Comics</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="home.htm">Comics</a>
+      <a href="games.htm">Games</a>
+      <a href="memes.html">Chat</a>
+    </div>
+  </nav>
 
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST'" id="proButton">Download Lavik The Businessman comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo'" id="proButton">Download Bob is Back in Home comic!</button>
-    
-  </button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3'" id="proButton">Download The Stickman Comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX'" id="proButton">Download Bob is Back in Style comic!</button>
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Bob Comics</h1>
+      <div class="hero-description">
+        <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
+        <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
+        <p class="tagline">So, lock your cookies🍪, not your doors.</p>
+      </div>
+    </div>
+  </header>
 
-  <button onclick="loadPDF('ltb.pdf')" id="proButton">Read Lavik The Businessman comic online!</button>
-  <button onclick="loadPDF('bibb.pdf')" id="proButton">Read Bob is Back in Home comic online!</button>
-  <button onclick="loadPDF('stickman.pdf')" id="proButton">Read The Stickman Comic online!</button>
-  <button onclick="loadPDF('bbis.pdf')" id="proButton">Read Bob is back in style online!</button>
-  <iframe id="pdf-frame" width="100%" height="600px"></iframe>
+  <!-- Main Content -->
+  <main>
+    <!-- Comic Downloads -->
+    <section class="features">
+      <h2>Download Bob Comics</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Lavik The Businessman</h3>
+          <a href="https://drive.google.com/uc?export=download&id=1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('files/ltb.pdf')" class="btn-secondary">Read Online</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Bob is Back in Home</h3>
+          <a href="https://drive.google.com/uc?export=download&id=1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('files/bibb.pdf')" class="btn-secondary">Read Online</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>The Stickman Comic</h3>
+          <a href="https://drive.google.com/uc?export=download&id=1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('files/stickman.pdf')" class="btn-secondary">Read Online</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Bob is Back in Style</h3>
+          <a href="https://drive.google.com/uc?export=download&id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('files/bbis.pdf')" class="btn-secondary">Read Online</a>
+        </div>
+      </div>
+      <iframe id="pdf-frame" width="100%" height="600px" style="margin-top: 30px;"></iframe>
+    </section>
+
+    <!-- Explore Section -->
+    <section class="features">
+      <h2>Explore Bob's World</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-gamepad"></i>
+          <h3>Games</h3>
+          <p>Play exciting games featuring Bob and friends!</p>
+          <a href="games.htm" class="btn-primary">Play Now</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-book"></i>
+          <h3>Comics</h3>
+          <p>Read all our hilarious comic adventures!</p>
+          <a href="home.htm" class="btn-primary">Read Comics</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-comments"></i>
+          <h3>Community</h3>
+          <p>Join our chat and share your favorite moments!</p>
+          <a href="memes.html" class="btn-primary">Join Chat</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section class="feedback">
+      <h2>We'd Love Your Feedback!</h2>
+      <p>Help us make Bob's adventures even better.</p>
+      <a href="comics" class="btn-secondary">Share Your Thoughts</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <i class="fas fa-book-open"></i>
+        <span>Bob Comics Inc</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- PDF Loader Script -->
   <script>
     function loadPDF(pdfFile) {
       document.getElementById('pdf-frame').src = pdfFile;
     }
   </script>
-  <h3>And there's more coming soon!</h3>
-  </head>
-  <nav>
-    <a href="index.html">About us</a>
-  </nav>
-
-  <header>
-    <iframe width="640px" height="480px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__jqbigNURUtQNDFKWExWSEg1MTc3OUdDMjJDM05YUC4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
-</header>
-
-
+</body>
+</html>
