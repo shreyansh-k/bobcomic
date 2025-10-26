@@ -1,42 +1,79 @@
 <!DOCTYPE html>
-<html lang="en"
-<head></head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Bob Comic Website</title>
-  <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css2.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="files/favicon.jpg" type="image/jpg">
 </head>
 <body>
-    <nav> 
-    <a href="home.htm">Click here to see our books!</a>
-  </nav>
+    <nav class="navbar"> 
+      <div class="nav-brand">
+        <i class="fas fa-book-open"></i>
+        <span>Bob Comics</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="home.htm">Comics</a>
+        <a href="games.htm">Games</a>
+        <a href="memes.html">Chat</a>
+      </div>
+    </nav>
 
-  <header> 
-    <h1>.</h1>
-  </header>
+    <header class="hero">
+      <div class="hero-content">
+        <h1>Welcome to Bob Comics</h1>
     
-    <h2>Bob is not your average thief. He's the kinda guy who'll try to rob a bank, and gets distracted by free pens, leaving the city’s finest scratching their heads and wondering if they’re chasing a criminal or attending a comedy show. </h2>
-    <h3>If you ever ask him why he turned into a life of crime, he'll answer, "I just hate being in line"</h3>
-    <h4>So, lock your cookies🍪, not your doors.</h4>
+        <div class="hero-description">
+          <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
+          <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
+          <p class="tagline">So, lock your cookies🍪, not your doors.</p>
+        </div>
+      </div>
+    </header>
 
-  <main>
-    <h2>Read all our comics, and play our games!</h2>
-    <button onclick="window.location.href='games.htm'" id="proButton">Games</button>
-    <button onclick="window.location.href='home.htm'" id="proButton">Comics</button>
-  </main>
-</body>
+    <main>
+      <section class="features">
+        <h2>Explore Bob's World</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <i class="fas fa-gamepad"></i>
+            <h3>Games</h3>
+            <p>Play exciting games featuring Bob and friends!</p>
+            <a href="games.htm" class="btn-primary">Play Now</a>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-book"></i>
+            <h3>Comics</h3>
+            <p>Read all our hilarious comic adventures!</p>
+            <a href="home.htm" class="btn-primary">Read Comics</a>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-comments"></i>
+            <h3>Community</h3>
 
-<h2>
-  Please give us feedback on our comics and website. 
-</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="feedback">
+        <h2>We'd Love Your Feedback!</h2>
+        <p>Help us make Bob's adventures even better.</p>
+        <a href="comics" class="btn-secondary">Share Your Thoughts</a>
+      </section>
+    </main>
+
     <footer>
-        <p>Bob Comic inc</p>
+      <div class="footer-content">
+        <div class="footer-brand">
+          <i class="fas fa-book-open"></i>
+          <span>Bob Comics Inc</span>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+      </div>
     </footer>
-
-
-</body>
 </html>
-
