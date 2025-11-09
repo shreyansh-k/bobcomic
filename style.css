@@ -438,8 +438,70 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-    
+    /* Updated hero heading with animated gradient + shimmer + float */
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+
+    /* animated gradient text */
+    background: linear-gradient(270deg, rgba(255,255,255,0.95) 0%, rgba(255,215,80,0.95) 25%, rgba(255,255,255,0.95) 50%, rgba(80,227,194,0.95) 75%, rgba(255,255,255,0.95) 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    /* subtle shadow for depth */
+    text-shadow: 0 6px 18px rgba(0,0,0,0.25);
+
+    /* combined animations: move gradient and float */
+    animation: gradientShift 6s ease infinite, floatUpDown 4s ease-in-out infinite;
+
+    /* allow shimmer pseudo-element positioning */
+    position: relative;
+    display: inline-block;
+}
+
+/* shimmering streak across the heading */
+.hero h1::after {
+    content: "";
+    position: absolute;
+    left: -10%;
+    top: 0;
+    width: 120%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-20deg) translateX(-100%);
+    animation: shimmer 3s linear infinite;
+    pointer-events: none;
+}
+
+/* Keyframes for the gradient movement */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* gentle floating motion to give the heading life */
+@keyframes floatUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* shimmer animation (moves the highlight across the text) */
+@keyframes shimmer {
+    0% { transform: skewX(-20deg) translateX(-100%); }
+    100% { transform: skewX(-20deg) translateX(100%); }
+}
+
+/* Small-screen tweak: slightly reduce shimmer duration for performance */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero h1::after { animation-duration: 4s; }
+}
     .footer-links, .social-links {
         justify-content: center;
     }
 }
+
