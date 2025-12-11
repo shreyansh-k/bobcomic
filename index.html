@@ -24,13 +24,8 @@
         <a href="author.html">Meet the authors!</a>
       </div>
     </nav>
-  <script>
-    const today = new Date();
-    const dayIndex = today.getDay();
-    const days = ["🍨🍨Sundae Sunday", "🖼️Meme Monday", "🌮Taco Tuesday", "🌀Wacky Wednesday","🧋Thirsty Thursday", "🍟Fries Friday","⚽Sports Saturday"];
-    const = days[dayIndex];
-    console.log("Today is " + day[dayIndex]);
-  </script>
+  
+
 
     <header class="hero">
       <div class="hero-content">
@@ -43,7 +38,16 @@
         </div>
       </div>
     </header>
-
+    <h1 id="funlabel"></h1>
+    <script>
+    const today = new Date();
+    const dayIndex = today.getDay();
+    const days = ["🍨🍨Sundae Sunday", "🖼️Meme Monday", "🌮Taco Tuesday", "🌀Wacky Wednesday","🧋Thirsty Thursday", "🍟Fries Friday","⚽Sports Saturday"];
+    const day = days[dayIndex];
+    document.getElementById("funLabel").textContent="Today is " + day;
+    console.log("Today is " + days[dayIndex]);
+    
+  </script>
     <main>
       <section class="features">
         <h2>Explore Bob's World</h2>
@@ -96,6 +100,7 @@
     </footer>
 
 </html>
+
 
 
 
