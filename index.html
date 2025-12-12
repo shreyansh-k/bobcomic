@@ -75,9 +75,8 @@
 
   function tacoCreate() {
     const taco = document.createElement("div");
-    const full_text = document.getElementById("funLabel");
-    const actual_text = full_text.textContent;
-    const emoji = actual_text.trim().slice(-1);
+    const dayEmojis = ["🍨","🖼️","🌮","🌀","🧋","🍟","⚽"];
+    const emoji = dayEmojis[dayindex]
     taco.classList.add("taco");
     taco.innerText = emoji;
     taco.style.left = Math.random() * 100 + "vw";
@@ -151,6 +150,7 @@
     </footer>
 
 </html>
+
 
 
 
