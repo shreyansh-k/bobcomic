@@ -52,12 +52,15 @@
       opacity: 1
     }
     to {
-      top: calc(100vh - 2rem);
+      top: var(--fall-bottom)
       opacity: 0;
     }
   }
 </style>
 <script>
+  const pageHeight = document.body.scrollHeight;
+  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 32) + "px");
+
   const today = new Date();
   const dayIndex = today.getDay();
   const days = [
@@ -150,6 +153,7 @@
     </footer>
 
 </html>
+
 
 
 
