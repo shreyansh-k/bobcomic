@@ -55,6 +55,21 @@
       top: var(--fall-bottom);
       opacity: 0;
     }
+    0% {
+      top:-50px;
+      opacity: 1;
+    }
+    90% {
+      top: calc(var(--fall-bottom) - 50px);
+      opacity: 1; 
+    }
+    100% {
+      top: var(--fall-bottom);
+      opacity: 0;
+
+    }
+    
+    
   }
 </style>
 <script>
@@ -153,6 +168,7 @@
     </footer>
 
 </html>
+
 
 
 
