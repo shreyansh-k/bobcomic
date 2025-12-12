@@ -39,14 +39,56 @@
       </div>
     </header>
       <h1 id="funLabel" style="text-align: center;"></h1>
+    <style>
+  .taco {
+    position: absolute;
+    font-size: 2rem;
+    animation: fall 3s linear forwards;
+  }
+
+  @keyframes fall {
+    from {
+      top: -50px;
+      opacity: 1;
+    }
+    to {
+      top: 100vh;
+      opacity: 0;
+    }
+  }
+</style>
     <script>
     const today = new Date();
     const dayIndex = today.getDay();
-    const days = ["🍨🍨Sundae Sunday", "🖼️Meme Monday", "🌮Taco Tuesday", "🌀Wacky Wednesday","🧋Thirsty Thursday", "🍟Fries Friday","⚽Sports Saturday"];
+    const days = ["Sundae Sunday🍨", "Meme Monday🖼️", "Taco Tuesday🌮", "Wacky Wednesday🌀","Thirsty Thursday🧋", "Fries Friday🍟","Sports Saturday⚽"];
     const day = days[dayIndex];
     document.getElementById("funLabel").textContent="Today is " + day;
     console.log("Today is " + days[dayIndex]);
-    
+      window.addEventListener("scroll",function() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (scrollTop > 0) {
+        const tacoCreate = function() {
+          const taco = document.createElement('div');
+          const full_text = document.getElementById("funLabel")
+          const actual_text = full_text.textContent;
+          const emoji = actual_text.trim().slice(-1);
+          taco.classList.add('taco');
+          taco.innerText = emoji;
+          taco.style.left = Math.random() * 100 + "vw";
+          taco.style.top = "-50px"
+          taco.addEventListener("animationend", () => {
+            taco.remove();
+          });
+          
+          document.body.appendChild(taco)
+        }
+      
+          
+      
+      setInterval(tacoCreate,300)
+      window.removeEventListener("scroll", startTacos);
+
+    }
   </script>
     <main>
       <section class="features">
@@ -100,6 +142,7 @@
     </footer>
 
 </html>
+
 
 
 
