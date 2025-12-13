@@ -72,7 +72,11 @@ window.addEventListener("resize", updateFallBottom);
     const taco = document.createElement("div");
     const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
     const today = new Date();
-    const emoji = dayEmojis[today.getDay()];
+    const month = date.getMonth()
+    let emoji = dayEmojis[today.getDay()];
+    if (month === 11) {
+      emoji = "❄️";
+    }
     taco.classList.add("taco");
     taco.innerText = emoji;
     taco.style.left = Math.random() * 100 + "vw";
@@ -144,6 +148,7 @@ window.addEventListener("resize", updateFallBottom);
     </footer>
 
 </html>
+
 
 
 
