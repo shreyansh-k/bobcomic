@@ -41,13 +41,15 @@
 <h1 id="funLabel" style="text-align: center;"></h1>
 <script>
   const pageHeight = document.documentElement.scrollHeight;
-  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 50) + "px");
+                          
+  const footerheight = document.getElementById("footer")
+  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - footerheight) + "px");
 </script>
 <style>
   .taco {
     position: relative;
     font-size: 2rem;
-    animation: fall 3s linear forwards;
+    animation: fall 10s linear forwards;
   }
 
   @keyframes fall {
@@ -165,12 +167,13 @@
           <i class="fas fa-book-open"></i>
           <span>Bob Comics Inc</span>
 
-      <div class="footer-bottom">
+      <div class="footer-bottom" id="footer">
         <p>&copy; 2025 Bob Comics. All rights reserved.</p>
       </div>
     </footer>
 
 </html>
+
 
 
 
