@@ -45,7 +45,7 @@
 </script>
 <style>
   .taco {
-    position: absolute;
+    position: relative;
     font-size: 2rem;
     animation: fall 3s linear forwards;
   }
@@ -83,7 +83,7 @@
   const dayIndex = today.getDay();
   const days = [
     "Sundae Sunday🍨",
-    "Meme Monday🖼️",
+    "Movie Monday🎬",
     "Taco Tuesday🌮",
     "Wacky Wednesday🌀",
     "Thirsty Thursday🧋",
@@ -96,7 +96,7 @@
 
   function tacoCreate() {
     const taco = document.createElement("div");
-    const dayEmojis = ["🍨","🖼️","🌮","🌀","🧋","🍟","⚽"];
+    const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
     const emoji = dayEmojis[dayIndex]
     taco.classList.add("taco");
     taco.innerText = emoji;
@@ -171,6 +171,7 @@
     </footer>
 
 </html>
+
 
 
 
