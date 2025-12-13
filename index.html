@@ -39,18 +39,13 @@
       </div>
     </header>
 <h1 id="funLabel" style="text-align: center;"></h1>
-<script>
-  const pageHeight = document.documentElement.scrollHeight;
-                          
-  const footerheight = document.getElementById("footer").offsetHeight;
-  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - footerheight) + "px");
-</script>
 <style>
   .taco {
     position: fixed;
     font-size: 2rem;
-    animation: fall 10s linear forwards;
+    animation: fall 3s linear forwards;
   }
+
 
   @keyframes fall {
     from {
@@ -61,52 +56,28 @@
       top: var(--fall-bottom);
       opacity: 1;
     }
-    0% {
-      top:-50px;
-      opacity: 1;
-    }
-    90% {
-      top: calc(var(--fall-bottom) - 50px);
-      opacity: 1; 
-    }
-    100% {
-      top: var(--fall-bottom);
-      opacity: 1;
-
-    }
-    
-    
   }
 </style>
+
 <script>
+function updateFallBottom() {
+  const pageHeight = document.documentElement.scrollHeight;
+  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 50) + "px");
+}
+updateFallBottom();
+window.addEventListener("resize", updateFallBottom);
 
-
-  const today = new Date();
-  const dayIndex = today.getDay();
-  const days = [
-    "Sundae Sunday🍨",
-    "Movie Monday🎬",
-    "Taco Tuesday🌮",
-    "Wacky Wednesday🌀",
-    "Thirsty Thursday🧋",
-    "Fries Friday🍟",
-    "Sports Saturday⚽"
-  ];
-  const day = days[dayIndex];
-  document.getElementById("funLabel").textContent = "Today is " + day;
-  console.log("Today is " + day);
 
   function tacoCreate() {
     const taco = document.createElement("div");
     const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
-    const emoji = dayEmojis[dayIndex]
+    const today = new Date();
+    const emoji = dayEmojis[today.getDay()];
     taco.classList.add("taco");
     taco.innerText = emoji;
     taco.style.left = Math.random() * 100 + "vw";
     taco.style.top = "-50px";
-    taco.addEventListener("animationend", () => {
-      taco.remove();
-    });
+    taco.addEventListener("animationend", () => taco.remove());
     document.body.appendChild(taco);
   }
 
@@ -115,7 +86,7 @@
     if (!tacosStarted && window.scrollY > 0) {
       tacosStarted = true;
       setInterval(tacoCreate, 300);
-      window.removeEventListener("scroll", startTacos); // remove listener after first trigger
+      window.removeEventListener("scroll", startTacos);
     }
   }
 
@@ -173,6 +144,28 @@
     </footer>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
