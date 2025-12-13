@@ -42,7 +42,7 @@
 <script>
   const pageHeight = document.documentElement.scrollHeight;
                           
-  const footerheight = document.getElementById("footer")
+  const footerheight = document.getElementById("footer").offsetHeight;
   document.documentElement.style.setProperty("--fall-bottom", (pageHeight - footerheight) + "px");
 </script>
 <style>
@@ -146,7 +146,7 @@
         </div>
     
         <div class="feature-card">
-          <i class="fa-face-grin-wide"></i>
+          <i class="fas -fa-face-grin-wide"></i>
           <h3>Get traumatized!</h3>
           <p>Click only if you have the guts to!</p>
           <a href="thecrazysection.html" class="btn-primary">Click!</a>
@@ -173,6 +173,7 @@
     </footer>
 
 </html>
+
 
 
 
