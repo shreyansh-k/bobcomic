@@ -39,6 +39,10 @@
       </div>
     </header>
 <h1 id="funLabel" style="text-align: center;"></h1>
+<script>
+  const pageHeight = document.body.scrollHeight;
+  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 32) + "px");
+</script>
 <style>
   .taco {
     position: absolute;
@@ -73,8 +77,7 @@
   }
 </style>
 <script>
-  const pageHeight = document.body.scrollHeight;
-  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 32) + "px");
+
 
   const today = new Date();
   const dayIndex = today.getDay();
@@ -168,6 +171,7 @@
     </footer>
 
 </html>
+
 
 
 
