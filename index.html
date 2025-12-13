@@ -72,7 +72,7 @@ window.addEventListener("resize", updateFallBottom);
     const taco = document.createElement("div");
     const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
     const today = new Date();
-    const month = date.getMonth()
+    const month = today.getMonth()
     let emoji = dayEmojis[today.getDay()];
     if (month === 11) {
       emoji = "❄️";
@@ -148,6 +148,7 @@ window.addEventListener("resize", updateFallBottom);
     </footer>
 
 </html>
+
 
 
 
