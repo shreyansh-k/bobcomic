@@ -105,7 +105,12 @@ a:hover {
   height: 400px;
   background: #e5ddd5;
 }
-
+#player {
+    background: linear-gradient(to right,#17B6E6,#174EE6);
+    border-radius: 15px
+    
+    
+}
 .controls {
   display: flex;
   padding: 10px;
