@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Archive.org Song Search</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
+    h1 { color: #333; }
+    input { padding: 8px; width: 300px; }
+    button { padding: 8px 12px; margin-left: 5px; }
+    #results ul { list-style: none; padding: 0; }
+    #results li { margin-bottom: 15px; }
+    audio { display: block; margin-top: 5px; width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Search Songs on Archive.org</h1>
+  <input type="text" id="searchQuery" placeholder="Enter song name">
+  <button onclick="searchArchive()">Search</button>
+  
+  <div id="results"></div>
+
+  <script>
+    async function searchArchive() {
+      const query = document.getElementById("searchQuery").value.trim();
+      const resultsDiv = document.getElementById("results");
+
+      if (!query) {
+        resultsDiv.innerHTML = "⚠️ Please enter a song name.";
+        return;
+      }
+
+      // Archive.org Advanced Search API
+      const apiUrl = `https://archive.org/advancedsearch.php?q=title:"${encodeURIComponent(query)}"+AND+mediatype:audio&fl[]=identifier&fl[]=title&rows=10&page=1&output=json`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.response.docs.length > 0) {
+          resultsDiv.innerHTML = "<h3>Results:</h3><ul>";
+          for (const item of data.response.docs) {
+            const identifier = item.identifier;
+            const title = item.title;
+
+            // Construct MP3 file URL (most items have /download/[identifier]/[filename])
+            const fileListUrl = `https://archive.org/metadata/${identifier}`;
+            const fileResponse = await fetch(fileListUrl);
+            const fileData = await fileResponse.json();
+
+            // Find MP3 files in the item
+            const mp3Files = fileData.files.filter(f => f.name.endsWith(".mp3"));
+            if (mp3Files.length > 0) {
+              mp3Files.forEach(mp3 => {
+                const mp3Url = `https://archive.org/download/${identifier}/${mp3.name}`;
+                resultsDiv.innerHTML += `
+                  <li>
+                    <strong>${title}</strong><br>
+                    <audio controls src="${mp3Url}"></audio><br>
+                    <a href="${mp3Url}" target="_blank">Download MP3</a>
+                  </li>`;
+              });
+            }
+          }
+          resultsDiv.innerHTML += "</ul>";
+        } else {
+          resultsDiv.innerHTML = "No songs found.";
+        }
+      } catch (err) {
+        resultsDiv.innerHTML = "❌ Error fetching data.";
+        console.error(err);
+      }
+    }
+  </script>
+</body>
+</html>
