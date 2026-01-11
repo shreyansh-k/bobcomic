@@ -71,11 +71,32 @@
       padding: 1em;
       margin-bottom: 1.2em;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
     }
     li:hover {
       transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
+    li:nth-child(1) { animation-delay: 0.1s; }
+    li:nth-child(2) { animation-delay: 0.2s; }
+    li:nth-child(3) { animation-delay: 0.3s; }
+    li:nth-child(4) { animation-delay: 0.4s; }
+    li:nth-child(5) { animation-delay: 0.5s; }
+    li:nth-child(n+6) { animation-delay: 0.6s; }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
     strong {
       font-size: 1.1em;
       color: #222;
@@ -83,7 +104,41 @@
     audio {
       margin-top: 10px;
       width: 100%;
-      border-radius: 6px;
+      height: 50px;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      padding: 5px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    audio:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    audio::-webkit-media-controls-panel {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      border-radius: 20px;
+    }
+    audio::-webkit-media-controls-play-button,
+    audio::-webkit-media-controls-mute-button {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      transition: background-color 0.2s;
+    }
+    audio::-webkit-media-controls-play-button:hover,
+    audio::-webkit-media-controls-mute-button:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+    audio::-webkit-media-controls-timeline {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      margin: 0 10px;
+    }
+    audio::-webkit-media-controls-current-time-display,
+    audio::-webkit-media-controls-time-remaining-display {
+      color: white;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      font-weight: 500;
     }
     a {
       display: inline-block;
@@ -91,15 +146,41 @@
       color: #4a90e2;
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s;
     }
     a:hover {
       text-decoration: underline;
+      color: #357ABD;
     }
     .message {
       text-align: center;
       font-size: 1.1em;
       color: #666;
       margin-top: 2em;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .loading {
+      display: inline-block;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
     }
   </style>
 </head>
@@ -125,7 +206,7 @@
         return;
       }
 
-      resultsDiv.innerHTML = "<div class='message'>⏳ Searching...</div>";
+      resultsDiv.innerHTML = "<div class='message loading'>⏳ Searching...</div>";
 
       const apiUrl = `https://archive.org/advancedsearch.php?q=title:"${encodeURIComponent(query)}"+AND+mediatype:audio&fl[]=identifier&fl[]=title&rows=5&page=1&output=json`;
 
@@ -141,7 +222,7 @@
             const fileData = await fileResponse.json();
             return { item, fileData };
           });
-
+          
           const results = await Promise.all(metadataPromises);
 
           let html = "<h3>Results:</h3><ul>";
@@ -149,10 +230,12 @@
             const identifier = item.identifier;
             const title = item.title;
 
-            // Filter playable MP3s
-            const mp3Files = fileData.files.filter(f =>
-              f.name.endsWith(".mp3") && f.format && f.format.includes("MP3")
-            );
+            // Filter playable MP3s - check if files array exists
+            const mp3Files = fileData.files && Array.isArray(fileData.files) 
+              ? fileData.files.filter(f =>
+                  f.name && f.name.endsWith(".mp3") && f.format && f.format.includes("MP3")
+                )
+              : [];
 
             if (mp3Files.length > 0) {
               mp3Files.forEach(mp3 => {
