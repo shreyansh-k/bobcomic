@@ -4,28 +4,115 @@
   <meta charset="UTF-8">
   <title>Archive.org Song Search</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 2em; background: #f9f9f9; }
-    h1 { color: #333; }
-    input { 
-      padding: 8px; width: 300px; 
-      border-radius: 5px
-      
+    /* Modern UI styling */
+    body {
+      font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6f9;
+      color: #333;
     }
-    input[type="text"]{
-      border-radius: 5px
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 1.5em;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-    
-    button { padding: 8px 12px; margin-left: 5px; }
-    #results ul { list-style: none; padding: 0; }
-    #results li { margin-bottom: 20px; }
-    audio { display: block; margin-top: 5px; width: 100%; }
+    h1 {
+      margin: 0;
+      font-size: 1.8em;
+      font-weight: 600;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin: 2em auto;
+      max-width: 600px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus {
+      border-color: #4a90e2;
+      outline: none;
+    }
+    button {
+      padding: 12px 18px;
+      margin-left: 10px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #357ABD;
+    }
+    #results {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1em;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: white;
+      border-radius: 10px;
+      padding: 1em;
+      margin-bottom: 1.2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    li:hover {
+      transform: translateY(-3px);
+    }
+    strong {
+      font-size: 1.1em;
+      color: #222;
+    }
+    audio {
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 6px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #4a90e2;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .message {
+      text-align: center;
+      font-size: 1.1em;
+      color: #666;
+      margin-top: 2em;
+    }
   </style>
 </head>
 <body>
-  <h1>Search Songs on Archive.org</h1>
-  <input type="text" id="searchQuery" placeholder="Enter song name">
-  <button onclick="searchArchive()">Search</button>
-  
+  <header>
+    <h1>🎵 Archive.org Song Search</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="text" id="searchQuery" placeholder="Enter song name...">
+    <button onclick="searchArchive()">Search</button>
+  </div>
+
   <div id="results"></div>
 
   <script>
@@ -34,11 +121,12 @@
       const resultsDiv = document.getElementById("results");
 
       if (!query) {
-        resultsDiv.innerHTML = "⚠️ Please enter a song name.";
+        resultsDiv.innerHTML = "<div class='message'>⚠️ Please enter a song name.</div>";
         return;
       }
 
-      // Archive.org Advanced Search API
+      resultsDiv.innerHTML = "<div class='message'>⏳ Searching...</div>";
+
       const apiUrl = `https://archive.org/advancedsearch.php?q=title:"${encodeURIComponent(query)}"+AND+mediatype:audio&fl[]=identifier&fl[]=title&rows=5&page=1&output=json`;
 
       try {
@@ -46,37 +134,47 @@
         const data = await response.json();
 
         if (data.response.docs.length > 0) {
-          resultsDiv.innerHTML = "<h3>Results:</h3><ul>";
-          for (const item of data.response.docs) {
+          // Fetch metadata in parallel
+          const metadataPromises = data.response.docs.map(async (item) => {
+            const fileListUrl = `https://archive.org/metadata/${item.identifier}`;
+            const fileResponse = await fetch(fileListUrl);
+            const fileData = await fileResponse.json();
+            return { item, fileData };
+          });
+
+          const results = await Promise.all(metadataPromises);
+
+          let html = "<h3>Results:</h3><ul>";
+          for (const { item, fileData } of results) {
             const identifier = item.identifier;
             const title = item.title;
 
-            // Get metadata for each item
-            const fileListUrl = `https://archive.org/metadata/${identifier}`;
-            const fileResponse = await fetch(fileListUrl);
-            const fileData = await fileResponse.json();
+            // Filter playable MP3s
+            const mp3Files = fileData.files.filter(f =>
+              f.name.endsWith(".mp3") && f.format && f.format.includes("MP3")
+            );
 
-            // Find MP3 files
-            const mp3Files = fileData.files.filter(f => f.name.endsWith(".mp3"));
             if (mp3Files.length > 0) {
               mp3Files.forEach(mp3 => {
-                // ✅ Correct public download link
                 const mp3Url = `https://archive.org/download/${identifier}/${mp3.name}`;
-                resultsDiv.innerHTML += `
+                html += `
                   <li>
                     <strong>${title}</strong><br>
-                    <audio controls src="${mp3Url}"></audio><br>
-                    <a href="${mp3Url}" target="_blank">Download MP3</a>
+                    <audio controls preload="none" src="${mp3Url}"></audio><br>
+                    <a href="${mp3Url}" target="_blank">⬇️ Download MP3</a>
                   </li>`;
               });
+            } else {
+              html += `<li><strong>${title}</strong><br><em>No playable MP3 found.</em></li>`;
             }
           }
-          resultsDiv.innerHTML += "</ul>";
+          html += "</ul>";
+          resultsDiv.innerHTML = html;
         } else {
-          resultsDiv.innerHTML = "No songs found.";
+          resultsDiv.innerHTML = "<div class='message'>No songs found.</div>";
         }
       } catch (err) {
-        resultsDiv.innerHTML = "❌ Error fetching data.";
+        resultsDiv.innerHTML = "<div class='message'>❌ Error fetching data.</div>";
         console.error(err);
       }
     }
