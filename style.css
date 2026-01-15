@@ -29,6 +29,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
+    box-sizing: border-box;
     z-index: 1000;
 }
 .home-page header {
@@ -437,6 +438,18 @@ footer {
     
     .nav-links {
         display: none;
+    }
+    
+    .nav-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-brand i {
+        font-size: 1.4rem;
+    }
+    
+    .navbar {
+        padding: 0 4%;
     }
     
     .footer-content {
