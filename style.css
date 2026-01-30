@@ -251,6 +251,7 @@ a:hover {
     transform-style: preserve-3d;
     position: relative;
     overflow: hidden;
+    perspective: var(--perspective-value);
 }
 
 .hero-content {
@@ -323,9 +324,8 @@ a:hover {
 }
 
 .feature-card:hover {
-    transform: translateY(-5px) rotateX(5deg) rotateY(5deg) translateZ(20px);
+    transform: translateY(-10px) translateZ(20px);
     box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    will-change: transform;
 }
 
 .feature-card i {
@@ -337,7 +337,6 @@ a:hover {
 
 .feature-card:hover i {
     transform: translateZ(30px) scale(1.1);
-    will-change: transform;
 }
 
 .feature-card h3 {
@@ -472,16 +471,12 @@ footer {
 
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
     .hero h1,
     .hero-description,
-    .feature-card {
+    .feature-card,
+    .feature-card i {
         transform: none !important;
+        transition: none !important;
     }
 }
 
