@@ -147,6 +147,80 @@ window.addEventListener("resize", updateFallBottom);
       </div>
     </footer>
 
+<script>
+// 3D Scrolling Effects with Performance Optimization
+(function() {
+  // Throttle scroll events using requestAnimationFrame
+  let ticking = false;
+  let lastScrollY = 0;
+  
+  // Cache DOM elements
+  const heroTitle = document.querySelector('.hero h1');
+  const heroDescription = document.querySelector('.hero-description');
+  const featureCards = document.querySelectorAll('.feature-card');
+  
+  function update3DEffects() {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // Parallax effect for hero section
+    if (heroTitle && heroDescription) {
+      const heroOffset = scrollY * 0.5;
+      const descriptionOffset = scrollY * 0.3;
+      
+      // Apply 3D transforms with parallax
+      heroTitle.style.transform = `translateY(${heroOffset}px) translateZ(50px)`;
+      heroDescription.style.transform = `translateY(${descriptionOffset}px) translateZ(30px)`;
+    }
+    
+    // 3D rotation effects for feature cards on scroll
+    featureCards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardTop = rect.top;
+      const cardCenter = cardTop + rect.height / 2;
+      
+      // Calculate if card is in viewport
+      if (cardTop < windowHeight && cardTop > -rect.height) {
+        const distanceFromCenter = (cardCenter - windowHeight / 2) / windowHeight;
+        const rotateX = distanceFromCenter * -10; // Rotate based on position
+        const rotateY = Math.sin(distanceFromCenter * Math.PI) * 5;
+        const translateZ = Math.max(0, (1 - Math.abs(distanceFromCenter)) * 30);
+        
+        // Apply 3D transform
+        card.style.transform = `
+          perspective(1000px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          translateZ(${translateZ}px)
+        `;
+        card.style.opacity = Math.max(0.5, 1 - Math.abs(distanceFromCenter));
+      }
+    });
+    
+    lastScrollY = scrollY;
+    ticking = false;
+  }
+  
+  function requestTick() {
+    if (!ticking) {
+      window.requestAnimationFrame(update3DEffects);
+      ticking = true;
+    }
+  }
+  
+  // Initialize on load
+  update3DEffects();
+  
+  // Listen for scroll events
+  window.addEventListener('scroll', requestTick, { passive: true });
+  
+  // Update on resize
+  window.addEventListener('resize', () => {
+    requestTick();
+  }, { passive: true });
+})();
+</script>
+
 </html>
 
 

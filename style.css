@@ -6,6 +6,9 @@
     --background-color: #F8F9FA;
     --card-background: #FFFFFF;
     --nav-height: 70px;
+    --perspective-value: 1000px;
+    --parallax-speed-fast: 0.5;
+    --parallax-speed-slow: 0.3;
 }
 
 body {
@@ -15,6 +18,8 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    perspective: var(--perspective-value);
+    transform-style: preserve-3d;
 }
 
 /* Modern Navigation */
@@ -247,18 +252,30 @@ a:hover {
     display: flex;
     align-items: center;
     padding: calc(var(--nav-height) + 20px) 5% 40px;
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-content {
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
     font-weight: 700;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+}
+
+.hero-description {
+    will-change: transform;
+    transition: transform 0.1s ease-out;
 }
 
 .lead-text {
@@ -306,17 +323,26 @@ a:hover {
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg) translateZ(20px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
 }
 
 .feature-card i {
     font-size: 2.5rem;
     color: var(--primary-color);
     margin-bottom: 20px;
+    will-change: transform;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover i {
+    transform: translateZ(30px) scale(1.1);
 }
 
 .feature-card h3 {
