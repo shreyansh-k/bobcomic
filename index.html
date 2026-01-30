@@ -147,6 +147,96 @@ window.addEventListener("resize", updateFallBottom);
       </div>
     </footer>
 
+<script>
+// 3D Scrolling Effects with Performance Optimization
+(function() {
+  // Check for reduced motion preference
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  
+  // If user prefers reduced motion, skip all 3D effects
+  if (prefersReducedMotion) {
+    return;
+  }
+  
+  // Throttle scroll events using requestAnimationFrame
+  let ticking = false;
+  let lastScrollY = 0;
+  
+  // Cache DOM elements
+  const hero = document.querySelector('.hero');
+  const heroTitle = document.querySelector('.hero h1');
+  const heroDescription = document.querySelector('.hero-description');
+  const featureCards = document.querySelectorAll('.feature-card');
+  
+  function update3DEffects() {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // Parallax effect for hero section (with boundary check)
+    if (heroTitle && heroDescription && hero) {
+      const heroHeight = hero.offsetHeight;
+      const maxScroll = heroHeight + 100; // Add some buffer
+      
+      // Only apply parallax while hero is visible
+      if (scrollY < maxScroll) {
+        const heroOffset = Math.min(scrollY * 0.5, maxScroll * 0.5);
+        const descriptionOffset = Math.min(scrollY * 0.3, maxScroll * 0.3);
+        
+        // Apply 3D transforms with parallax
+        heroTitle.style.transform = `translateY(${heroOffset}px) translateZ(50px)`;
+        heroDescription.style.transform = `translateY(${descriptionOffset}px) translateZ(30px)`;
+      }
+    }
+    
+    // 3D rotation effects for feature cards on scroll (only when not hovering)
+    featureCards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const cardTop = rect.top;
+      const cardCenter = cardTop + rect.height / 2;
+      
+      // Calculate if card is in viewport
+      if (cardTop < windowHeight && cardTop > -rect.height) {
+        const distanceFromCenter = (cardCenter - windowHeight / 2) / windowHeight;
+        const rotateX = distanceFromCenter * -10; // Rotate based on position
+        const rotateY = Math.sin(distanceFromCenter * Math.PI) * 5;
+        const translateZ = Math.max(0, (1 - Math.abs(distanceFromCenter)) * 30);
+        
+        // Check if card is being hovered - if so, don't override hover transforms
+        if (!card.matches(':hover')) {
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+        }
+      }
+    });
+    
+    lastScrollY = scrollY;
+    ticking = false;
+  }
+  
+  function requestTick() {
+    if (!ticking) {
+      window.requestAnimationFrame(update3DEffects);
+      ticking = true;
+    }
+  }
+  
+  // Debounce resize handler
+  let resizeTimeout;
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(requestTick, 150);
+  }
+  
+  // Initialize on load
+  update3DEffects();
+  
+  // Listen for scroll events
+  window.addEventListener('scroll', requestTick, { passive: true });
+  
+  // Update on resize (debounced)
+  window.addEventListener('resize', handleResize, { passive: true });
+})();
+</script>
+
 </html>
 
 
