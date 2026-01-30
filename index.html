@@ -197,8 +197,8 @@ window.addEventListener("resize", updateFallBottom);
       // Calculate if card is in viewport
       if (cardTop < windowHeight && cardTop > -rect.height) {
         const distanceFromCenter = (cardCenter - windowHeight / 2) / windowHeight;
-        const rotateX = distanceFromCenter * -10; // Rotate based on position
-        const rotateY = Math.sin(distanceFromCenter * Math.PI) * 5;
+        const rotateX = distanceFromCenter * -20; // Rotate based on position
+        const rotateY = Math.sin(distanceFromCenter * Math.PI) * 15;
         const translateZ = Math.max(0, (1 - Math.abs(distanceFromCenter)) * 30);
         
         // Check if card is being hovered - if so, don't override hover transforms
