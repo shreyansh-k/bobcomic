@@ -8,11 +8,64 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="favicon.jpg" type="image/jpg" />
+  <style>
+  .taco {
+    position: fixed;
+    font-size: 2rem;
+    animation: fall 3s linear forwards;
+  }
 
+
+  @keyframes fall {
+    from {
+      top: -50px;
+      opacity: 1;
+    }
+    to {
+      top: var(--fall-bottom);
+      opacity: 1;
+    }
+  }
+</style>
   <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
   <script>
     // Configure PDF.js worker
+    function updateFallBottom() {
+  const pageHeight = document.documentElement.scrollHeight;
+  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 50) + "px");
+}
+updateFallBottom();
+window.addEventListener("resize", updateFallBottom);
+
+
+  function tacoCreate() {
+    const taco = document.createElement("div");
+    const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
+    const today = new Date();
+    const month = today.getMonth()
+    let emoji = dayEmojis[today.getDay()];
+    if (month === 11) {
+      emoji = "❄️";
+    }
+    taco.classList.add("taco");
+    taco.innerText = emoji;
+    taco.style.left = Math.random() * 100 + "vw";
+    taco.style.top = "-50px";
+    taco.addEventListener("animationend", () => taco.remove());
+    document.body.appendChild(taco);
+  }
+
+  let tacosStarted = false;
+  function startTacos() {
+    if (!tacosStarted && window.scrollY > 0) {
+      tacosStarted = true;
+      setInterval(tacoCreate, 300);
+      window.removeEventListener("scroll", startTacos);
+    }
+  }
+
+  window.addEventListener("scroll", startTacos);
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
   </script>
 
@@ -184,7 +237,7 @@
         <div class="feature-card">
           <i class="fas fa-download"></i>
           <h3>Physics Reimagined</h3>
-          <a href="https://drive.usercontent.google.com/download?id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX&export=download&authuser=0&confirm=t&uuid=a0932f15-3a45-4041-96b8-4615e01efb32&at=APcXIO1NuTsmtuTkMnl9tEU-h-nf:1770118722959" class="btn-primary">Download</a>
+          <a href="https://drive.usercontent.google.com/download?id=11SLLlryhFwR4PLc71QmYXpcJ9d37Vl45&export=download&authuser=1&confirm=t&uuid=46e7e785-badc-4c58-94ee-a99028c58778&at=APcXIO2XgnBPjJqlecPid1jCIZMx:1770119527601" class="btn-primary">Download</a>
           <a href="#" onclick="loadPDF('PhysicsReimagined.pdf'); return false;" class="btn-secondary">Read Online</a>
         </div>
       </div>
@@ -346,5 +399,6 @@
   </script>
 </body>
 </html>
+
 
 
