@@ -66,6 +66,7 @@
     }
     
     // Mouse move handler with throttling for performance
+    // Note: Event listener persists for the entire session as this is intentional behavior for the easter egg
     document.addEventListener('mousemove', function(e) {
       // Throttle to create trail effect without too many cookies
       const now = Date.now();
@@ -196,6 +197,76 @@
       margin-top: 5px;
     }
     
+    .taco-game-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10002;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .taco-game-modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    .taco-game-modal-content h2 {
+      margin: 0 0 20px 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      color: #333;
+    }
+    
+    .taco-game-modal-content p {
+      margin: 0 0 30px 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.2rem;
+      color: #666;
+    }
+    
+    .taco-game-modal-button {
+      background: #ff6b35;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .taco-game-modal-button:hover {
+      background: #ff5722;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
     @media (max-width: 768px) {
       .taco-score-display {
         top: 10px;
@@ -207,12 +278,29 @@
       .game-taco {
         font-size: 2rem;
       }
+      
+      .taco-game-modal-content {
+        padding: 30px 20px;
+      }
+      
+      .taco-game-modal-content h2 {
+        font-size: 1.5rem;
+      }
+      
+      .taco-game-modal-content p {
+        font-size: 1rem;
+      }
     }
   `;
   document.head.appendChild(gameStyle);
   
-  // Start the game automatically on first page load
-  setTimeout(startGame, 1000); // Small delay to let page load
+  // Start the game automatically when DOM is fully loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startGame);
+  } else {
+    // DOM already loaded
+    startGame();
+  }
   
   function startGame() {
     gameActive = true;
@@ -337,13 +425,66 @@
     // Mark game as played in session
     sessionStorage.setItem('tacoGamePlayed', 'true');
     
-    // Show results
+    // Show results with accessible modal instead of alert
     setTimeout(() => {
-      if (score >= 20) {
-        alert(`🥇 You Won! You collected ${score} tacos!`);
-      } else {
-        alert(`Better luck next time! You collected ${score}/20 tacos.`);
-      }
+      showGameResultModal(score);
     }, 500);
+  }
+  
+  function showGameResultModal(finalScore) {
+    // Create modal
+    const modal = document.createElement('div');
+    modal.className = 'taco-game-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-labelledby', 'game-result-title');
+    modal.setAttribute('aria-describedby', 'game-result-description');
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = 'taco-game-modal-content';
+    
+    const title = document.createElement('h2');
+    title.id = 'game-result-title';
+    
+    const description = document.createElement('p');
+    description.id = 'game-result-description';
+    
+    if (finalScore >= 20) {
+      title.textContent = '🥇 You Won!';
+      description.textContent = `You collected ${finalScore} tacos!`;
+    } else {
+      title.textContent = 'Better luck next time!';
+      description.textContent = `You collected ${finalScore}/20 tacos.`;
+    }
+    
+    const button = document.createElement('button');
+    button.className = 'taco-game-modal-button';
+    button.textContent = 'Close';
+    button.setAttribute('aria-label', 'Close game results');
+    button.onclick = () => modal.remove();
+    
+    modalContent.appendChild(title);
+    modalContent.appendChild(description);
+    modalContent.appendChild(button);
+    modal.appendChild(modalContent);
+    
+    // Close modal on background click
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.remove();
+      }
+    };
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function escapeHandler(e) {
+      if (e.key === 'Escape') {
+        modal.remove();
+        document.removeEventListener('keydown', escapeHandler);
+      }
+    });
+    
+    document.body.appendChild(modal);
+    
+    // Focus on the close button for accessibility
+    button.focus();
   }
 })();
