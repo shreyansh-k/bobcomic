@@ -123,10 +123,14 @@
 // 2. TACO CLICKING GAME EASTER EGG
 // ==========================================
 (function() {
+  // Game constants
+  const WINNING_SCORE = 20;
+  const GAME_DURATION = 30; // seconds
+  
   // Game state
   let gameActive = false;
   let score = 0;
-  let gameTime = 30; // 30 seconds
+  let gameTime = GAME_DURATION;
   let timeRemaining = gameTime;
   let gameInterval;
   let spawnInterval;
@@ -366,7 +370,7 @@
     const scoreDisplay = document.createElement('div');
     scoreDisplay.className = 'taco-score-display';
     scoreDisplay.innerHTML = `
-      <div>Tacos: <span class="score">${score}</span>/20</div>
+      <div>Tacos: <span class="score">${score}</span>/${WINNING_SCORE}</div>
       <div class="timer">Time: ${timeRemaining}s</div>
     `;
     document.body.appendChild(scoreDisplay);
@@ -482,6 +486,13 @@
     }, 500);
   }
   
+  function resetGameButton() {
+    // Show the game button again
+    if (gameButton) {
+      gameButton.style.display = 'block';
+    }
+  }
+  
   function showGameResultModal(finalScore) {
     // Create modal
     const modal = document.createElement('div');
@@ -499,12 +510,12 @@
     const description = document.createElement('p');
     description.id = 'game-result-description';
     
-    if (finalScore >= 20) {
+    if (finalScore >= WINNING_SCORE) {
       title.textContent = '🥇 You Won!';
       description.textContent = `You collected ${finalScore} tacos!`;
     } else {
       title.textContent = 'Better luck next time!';
-      description.textContent = `You collected ${finalScore}/20 tacos.`;
+      description.textContent = `You collected ${finalScore}/${WINNING_SCORE} tacos.`;
     }
     
     const button = document.createElement('button');
@@ -513,10 +524,7 @@
     button.setAttribute('aria-label', 'Close game results');
     button.onclick = () => {
       modal.remove();
-      // Show the game button again
-      if (gameButton) {
-        gameButton.style.display = 'block';
-      }
+      resetGameButton();
     };
     
     modalContent.appendChild(title);
@@ -528,10 +536,7 @@
     modal.onclick = (e) => {
       if (e.target === modal) {
         modal.remove();
-        // Show the game button again
-        if (gameButton) {
-          gameButton.style.display = 'block';
-        }
+        resetGameButton();
       }
     };
     
@@ -539,10 +544,7 @@
     document.addEventListener('keydown', function escapeHandler(e) {
       if (e.key === 'Escape') {
         modal.remove();
-        // Show the game button again
-        if (gameButton) {
-          gameButton.style.display = 'block';
-        }
+        resetGameButton();
         document.removeEventListener('keydown', escapeHandler);
       }
     });
