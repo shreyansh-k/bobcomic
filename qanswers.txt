@@ -1,0 +1,8 @@
+# Poll Answer Counts Reference
+# This file documents the expected format for poll vote tallies.
+# Votes are stored client-side in each visitor's localStorage (key: pollVotes_<questionNum>).
+# Format for each question: question_number|option_index|vote_count
+# Example: 1|0|42 means question 1, option 0 received 42 votes.
+#
+# Note: Because this is a static site, votes are persisted per-browser in localStorage.
+# In a server-backed deployment this file would be updated server-side on each vote.
