@@ -134,6 +134,19 @@ window.addEventListener("resize", updateFallBottom);
         <p>Help us make Bob's adventures even better.</p>
         <a href="feedback.htm" class="btn-secondary">Share Your Thoughts</a>
       </section>
+
+      <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
+        <h2>Poll: What's your favorite Bob moment?</h2>
+        <div id="poll-choices">
+          <button class="btn-primary poll-option" data-option="Stealing pens" style="margin: 5px;">Stealing pens</button>
+          <button class="btn-primary poll-option" data-option="Distracted by snacks" style="margin: 5px;">Distracted by snacks</button>
+          <button class="btn-primary poll-option" data-option="Escaping slowly" style="margin: 5px;">Escaping slowly</button>
+        </div>
+        <div id="poll-results" style="display: none; margin-top: 20px;">
+          <h3>Results</h3>
+          <div id="results-display" style="text-align: left; max-width: 400px; margin: 0 auto;"></div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -240,8 +253,10 @@ window.addEventListener("resize", updateFallBottom);
 <!-- Easter Eggs Script -->
 <script src="easter-eggs.js"></script>
 
-</html>
+<!-- Daily Poll Script -->
+<script src="poll.js"></script>
 
+</html>
 
 
 
