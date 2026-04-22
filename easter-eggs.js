@@ -123,24 +123,62 @@
 // 2. TACO CLICKING GAME EASTER EGG
 // ==========================================
 (function() {
-  // Check if game has already been played in this session
-  if (sessionStorage.getItem('tacoGamePlayed')) {
-    return;
-  }
+  // Game constants
+  const WINNING_SCORE = 20;
+  const GAME_DURATION = 30; // seconds
   
   // Game state
   let gameActive = false;
   let score = 0;
-  let gameTime = 30; // 30 seconds
+  let gameTime = GAME_DURATION;
   let timeRemaining = gameTime;
   let gameInterval;
   let spawnInterval;
   let clickableTacos = [];
+  let gameButton;
   
   // Add game CSS
   const gameStyle = document.createElement('style');
   gameStyle.id = 'taco-game-style';
   gameStyle.textContent = `
+    .taco-game-button {
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #F5A623 0%, #ff6b35 100%);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      z-index: 9999;
+      box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+      transition: all 0.3s ease;
+      animation: buttonPulse 2s ease-in-out infinite;
+    }
+    
+    .taco-game-button:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 8px 25px rgba(245, 166, 35, 0.6);
+    }
+    
+    .taco-game-button:active {
+      transform: translateX(-50%) scale(0.98);
+    }
+    
+    @keyframes buttonPulse {
+      0%, 100% {
+        box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+      }
+      50% {
+        box-shadow: 0 6px 30px rgba(245, 166, 35, 0.7);
+      }
+    }
+    
     .game-taco {
       position: fixed;
       font-size: 2.5rem;
@@ -268,6 +306,12 @@
     }
     
     @media (max-width: 768px) {
+      .taco-game-button {
+        top: 80px;
+        padding: 12px 24px;
+        font-size: 1.1rem;
+      }
+      
       .taco-score-display {
         top: 10px;
         right: 10px;
@@ -294,15 +338,29 @@
   `;
   document.head.appendChild(gameStyle);
   
-  // Start the game automatically when DOM is fully loaded
+  // Create and add the game button when DOM is ready
+  function createGameButton() {
+    gameButton = document.createElement('button');
+    gameButton.className = 'taco-game-button';
+    gameButton.innerHTML = '🌮 Play Taco Game!';
+    gameButton.setAttribute('aria-label', 'Start Taco Clicking Game');
+    gameButton.onclick = startGame;
+    document.body.appendChild(gameButton);
+  }
+  
+  // Initialize button when DOM is ready
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startGame);
+    document.addEventListener('DOMContentLoaded', createGameButton);
   } else {
-    // DOM already loaded
-    startGame();
+    createGameButton();
   }
   
   function startGame() {
+    // Hide the game button
+    if (gameButton) {
+      gameButton.style.display = 'none';
+    }
+    
     gameActive = true;
     score = 0;
     timeRemaining = gameTime;
@@ -312,7 +370,7 @@
     const scoreDisplay = document.createElement('div');
     scoreDisplay.className = 'taco-score-display';
     scoreDisplay.innerHTML = `
-      <div>Score: <span class="score">${score}</span>/20</div>
+      <div>Tacos: <span class="score">${score}</span>/${WINNING_SCORE}</div>
       <div class="timer">Time: ${timeRemaining}s</div>
     `;
     document.body.appendChild(scoreDisplay);
@@ -422,13 +480,17 @@
       scoreDisplay.remove();
     }
     
-    // Mark game as played in session
-    sessionStorage.setItem('tacoGamePlayed', 'true');
-    
     // Show results with accessible modal instead of alert
     setTimeout(() => {
       showGameResultModal(score);
     }, 500);
+  }
+  
+  function resetGameButton() {
+    // Show the game button again
+    if (gameButton) {
+      gameButton.style.display = 'block';
+    }
   }
   
   function showGameResultModal(finalScore) {
@@ -448,19 +510,22 @@
     const description = document.createElement('p');
     description.id = 'game-result-description';
     
-    if (finalScore >= 20) {
+    if (finalScore >= WINNING_SCORE) {
       title.textContent = '🥇 You Won!';
       description.textContent = `You collected ${finalScore} tacos!`;
     } else {
       title.textContent = 'Better luck next time!';
-      description.textContent = `You collected ${finalScore}/20 tacos.`;
+      description.textContent = `You collected ${finalScore}/${WINNING_SCORE} tacos.`;
     }
     
     const button = document.createElement('button');
     button.className = 'taco-game-modal-button';
     button.textContent = 'Close';
     button.setAttribute('aria-label', 'Close game results');
-    button.onclick = () => modal.remove();
+    button.onclick = () => {
+      modal.remove();
+      resetGameButton();
+    };
     
     modalContent.appendChild(title);
     modalContent.appendChild(description);
@@ -471,6 +536,7 @@
     modal.onclick = (e) => {
       if (e.target === modal) {
         modal.remove();
+        resetGameButton();
       }
     };
     
@@ -478,6 +544,7 @@
     document.addEventListener('keydown', function escapeHandler(e) {
       if (e.key === 'Escape') {
         modal.remove();
+        resetGameButton();
         document.removeEventListener('keydown', escapeHandler);
       }
     });
