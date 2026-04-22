@@ -67,20 +67,45 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Vote storage helpers
+  // Firebase configuration & storage helpers (GitHub Pages Compatible)
   // ---------------------------------------------------------------------------
 
-  /** Returns the vote counts object for the given question number. */
-  function getVoteCounts(questionNum) {
-    var key = 'pollVotes_' + questionNum;
-    return JSON.parse(localStorage.getItem(key) || 'null') || { 0: 0, 1: 0 };
+  // TODO: Replace with your actual Firebase project configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCMOmdGYAObQaqDRpjHFteBe60nQD6iygA",
+  authDomain: "poll-26ec4.firebaseapp.com",
+  projectId: "poll-26ec4",
+  storageBucket: "poll-26ec4.firebasestorage.app",
+  messagingSenderId: "490514847465",
+  appId: "1:490514847465:web:48532a16bca89b83534278",
+  measurementId: "G-9Z97SYN65L"
+};
+
+  /** Returns the vote counts object for the given question number from Firebase. */
+  async function getVoteCounts(questionNum) {
+    try {
+      const response = await fetch(`https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com/pollResults/${questionNum}.json`);
+      const data = await response.json();
+      return data || { 0: 0, 1: 0 };
+    } catch (e) {
+      console.error("Firebase fetch failed", e);
+      return { 0: 0, 1: 0 };
+    }
   }
 
-  /** Increments the vote count for a specific option and persists it. */
-  function recordVote(questionNum, optionIndex) {
-    var counts = getVoteCounts(questionNum);
-    counts[optionIndex] = (counts[optionIndex] || 0) + 1;
-    localStorage.setItem('pollVotes_' + questionNum, JSON.stringify(counts));
+  /** Increments the vote count for a specific option in Firebase. */
+  async function recordVote(questionNum, optionIndex) {
+    try {
+      const currentCounts = await getVoteCounts(questionNum);
+      const newCount = (currentCounts[optionIndex] || 0) + 1;
+      
+      await fetch(`https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com/pollResults/${questionNum}/${optionIndex}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(newCount)
+      });
+    } catch (e) {
+      console.error("Firebase save failed", e);
+    }
   }
 
   /** Returns the key used to check whether the user has already voted. */
@@ -97,6 +122,91 @@
   function markVoted(questionNum) {
     localStorage.setItem(hasVotedKey(questionNum), '1');
   }
+
+  // ---------------------------------------------------------------------------
+  // UI & Logic
+  // ---------------------------------------------------------------------------
+
+  const QUESTIONS_URL = 'https://raw.githubusercontent.com/shreyansh-k/bobcomic/refs/heads/copilot/add-daily-poll-feature/questions.json';
+
+  async function initPoll() {
+    const questionNum = getTodaysQuestionNumber();
+    const pollContainer = document.getElementById('poll-choices');
+    const resultsDisplay = document.getElementById('results-display');
+    const pollResults = document.getElementById('poll-results');
+    const questionText = document.querySelector('.poll-section h2');
+
+    if (!pollContainer || !resultsDisplay || !pollResults) return;
+
+    try {
+      const response = await fetch(QUESTIONS_URL);
+      const questions = await response.json();
+      const currentQuestion = questions[questionNum];
+
+      if (!currentQuestion) return;
+
+      questionText.innerText = `Poll: ${currentQuestion.question}`;
+      pollContainer.innerHTML = '';
+      
+      currentQuestion.options.forEach((option, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-primary poll-option';
+        btn.style.margin = '5px';
+        btn.innerText = option;
+        btn.onclick = async () => {
+          if (hasVoted(questionNum)) {
+            alert("You've already voted today!");
+            return;
+          }
+          await recordVote(questionNum, index);
+          markVoted(questionNum);
+          renderResults(questionNum, currentQuestion.options);
+        };
+        pollContainer.appendChild(btn);
+      });
+
+      if (hasVoted(questionNum)) {
+        renderResults(questionNum, currentQuestion.options);
+      }
+    } catch (e) {
+      console.error("Error loading poll questions", e);
+    }
+  }
+
+  async function renderResults(questionNum, options) {
+    const pollContainer = document.getElementById('poll-choices');
+    const resultsDisplay = document.getElementById('results-display');
+    const pollResults = document.getElementById('poll-results');
+    
+    pollContainer.style.display = 'none';
+    pollResults.style.display = 'block';
+    resultsDisplay.innerHTML = 'Loading results...';
+
+    const counts = await getVoteCounts(questionNum);
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    
+    resultsDisplay.innerHTML = '';
+    options.forEach((option, index) => {
+      const votes = counts[index] || 0;
+      const percent = total === 0 ? 0 : Math.round((votes / total) * 100);
+      
+      const row = document.createElement('div');
+      row.style.margin = '10px 0';
+      row.innerHTML = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+          <span>${option}</span>
+          <span>${percent}% (${votes})</span>
+        </div>
+        <div style="background: #333; height: 10px; border-radius: 5px; overflow: hidden;">
+          <div style="background: #ff4757; width: ${percent}%; height: 100%; transition: width 0.5s ease;"></div>
+        </div>
+      `;
+      resultsDisplay.appendChild(row);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initPoll);
+})();
 
   // ---------------------------------------------------------------------------
   // Render helpers
