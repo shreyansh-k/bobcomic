@@ -94,14 +94,21 @@
     }
   }
 
-  /** Increments the vote count for a specific option in Firebase. */
-  async function recordVote(questionNum, optionIndex) {
+  /** Increments the vote count for a specific option in Firebase.
+   *  Writes back all option counts for the question in one PUT to minimize writes.
+   */
+  async function recordVote(questionNum, optionName, allOptions) {
     try {
       const currentCounts = await getVoteCounts(questionNum);
-      const newCount = (currentCounts[optionIndex] || 0) + 1;
-      await fetch(`${DB_URL}/pollResults/${questionNum}/${optionIndex}.json`, {
+      const newCounts = {};
+      allOptions.forEach(opt => {
+        newCounts[opt] = currentCounts[opt] || 0;
+      });
+      newCounts[optionName] += 1;
+      await fetch(`${DB_URL}/pollResults/${questionNum}.json`, {
         method: 'PUT',
-        body: JSON.stringify(newCount)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newCounts)
       });
     } catch (e) {
       console.error("Firebase save failed", e);
@@ -150,7 +157,7 @@
       }
       pollContainer.innerHTML = '';
 
-      currentQuestion.options.forEach((option, index) => {
+      currentQuestion.options.forEach((option) => {
         const btn = document.createElement('button');
         btn.className = 'btn-primary poll-option';
         btn.style.margin = '5px';
@@ -160,7 +167,7 @@
             alert("You've already voted today!");
             return;
           }
-          await recordVote(questionNum, index);
+          await recordVote(questionNum, option, currentQuestion.options);
           markVoted(questionNum);
           await renderResults(questionNum, currentQuestion.options);
         };
@@ -188,8 +195,8 @@
     const total = Object.values(counts).reduce((a, b) => a + b, 0);
 
     resultsDisplay.innerHTML = '';
-    options.forEach((option, index) => {
-      const votes = counts[index] || 0;
+    options.forEach((option) => {
+      const votes = counts[option] || 0;
       const percent = total === 0 ? 0 : Math.round((votes / total) * 100);
 
       const row = document.createElement('div');
