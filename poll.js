@@ -67,19 +67,45 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Vote storage helpers (localStorage)
+  // Firebase configuration & vote storage helpers
   // ---------------------------------------------------------------------------
 
-  /** Returns the vote counts object for the given question number from localStorage. */
-  function getVoteCounts(questionNum) {
-    return JSON.parse(localStorage.getItem('pollVotes_' + questionNum) || '{}');
+  const firebaseConfig = {
+    apiKey: "AIzaSyCMOmdGYAObQaqDRpjHFteBe60nQD6iygA",
+    authDomain: "poll-26ec4.firebaseapp.com",
+    projectId: "poll-26ec4",
+    storageBucket: "poll-26ec4.firebasestorage.app",
+    messagingSenderId: "490514847465",
+    appId: "1:490514847465:web:48532a16bca89b83534278",
+    measurementId: "G-9Z97SYN65L"
+  };
+
+  const DB_URL = `https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com`;
+
+  /** Returns the vote counts object for the given question number from Firebase. */
+  async function getVoteCounts(questionNum) {
+    try {
+      const response = await fetch(`${DB_URL}/pollResults/${questionNum}.json`);
+      const data = await response.json();
+      return data || {};
+    } catch (e) {
+      console.error("Firebase fetch failed", e);
+      return {};
+    }
   }
 
-  /** Increments the vote count for a specific option in localStorage. */
-  function recordVote(questionNum, optionIndex) {
-    var counts = getVoteCounts(questionNum);
-    counts[optionIndex] = (counts[optionIndex] || 0) + 1;
-    localStorage.setItem('pollVotes_' + questionNum, JSON.stringify(counts));
+  /** Increments the vote count for a specific option in Firebase. */
+  async function recordVote(questionNum, optionIndex) {
+    try {
+      const currentCounts = await getVoteCounts(questionNum);
+      const newCount = (currentCounts[optionIndex] || 0) + 1;
+      await fetch(`${DB_URL}/pollResults/${questionNum}/${optionIndex}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(newCount)
+      });
+    } catch (e) {
+      console.error("Firebase save failed", e);
+    }
   }
 
   /** Returns the key used to check whether the user has already voted. */
@@ -129,38 +155,39 @@
         btn.className = 'btn-primary poll-option';
         btn.style.margin = '5px';
         btn.innerText = option;
-        btn.onclick = () => {
+        btn.onclick = async () => {
           if (hasVoted(questionNum)) {
             alert("You've already voted today!");
             return;
           }
-          recordVote(questionNum, index);
+          await recordVote(questionNum, index);
           markVoted(questionNum);
-          renderResults(questionNum, currentQuestion.options);
+          await renderResults(questionNum, currentQuestion.options);
         };
         pollContainer.appendChild(btn);
       });
 
       if (hasVoted(questionNum)) {
-        renderResults(questionNum, currentQuestion.options);
+        await renderResults(questionNum, currentQuestion.options);
       }
     } catch (e) {
       console.error("Error loading poll questions", e);
     }
   }
 
-  function renderResults(questionNum, options) {
+  async function renderResults(questionNum, options) {
     const pollContainer = document.getElementById('poll-choices');
     const resultsDisplay = document.getElementById('results-display');
     const pollResults = document.getElementById('poll-results');
 
     pollContainer.style.display = 'none';
     pollResults.style.display = 'block';
-    resultsDisplay.innerHTML = '';
+    resultsDisplay.innerHTML = 'Loading results...';
 
-    const counts = getVoteCounts(questionNum);
+    const counts = await getVoteCounts(questionNum);
     const total = Object.values(counts).reduce((a, b) => a + b, 0);
 
+    resultsDisplay.innerHTML = '';
     options.forEach((option, index) => {
       const votes = counts[index] || 0;
       const percent = total === 0 ? 0 : Math.round((votes / total) * 100);
