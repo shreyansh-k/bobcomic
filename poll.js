@@ -197,19 +197,32 @@
     resultsDisplay.innerHTML = '';
     options.forEach((option) => {
       const votes = counts[option] || 0;
-      const percent = total === 0 ? 0 : Math.round((votes / total) * 100);
+      const percent = total === 0 ? 0 : Math.min(100, Math.max(0, Math.round((votes / total) * 100)));
 
       const row = document.createElement('div');
       row.style.margin = '10px 0';
-      row.innerHTML = `
-        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-          <span>${option}</span>
-          <span>${percent}% (${votes})</span>
-        </div>
-        <div style="background: #333; height: 10px; border-radius: 5px; overflow: hidden;">
-          <div style="background: #ff4757; width: ${percent}%; height: 100%; transition: width 0.5s ease;"></div>
-        </div>
-      `;
+
+      const labelRow = document.createElement('div');
+      labelRow.style.cssText = 'display: flex; justify-content: space-between; margin-bottom: 5px;';
+
+      const optionLabel = document.createElement('span');
+      optionLabel.textContent = option;
+
+      const countLabel = document.createElement('span');
+      countLabel.textContent = `${percent}% (${votes})`;
+
+      labelRow.appendChild(optionLabel);
+      labelRow.appendChild(countLabel);
+
+      const barOuter = document.createElement('div');
+      barOuter.style.cssText = 'background: #333; height: 10px; border-radius: 5px; overflow: hidden;';
+
+      const barInner = document.createElement('div');
+      barInner.style.cssText = `background: #ff4757; width: ${percent}%; height: 100%; transition: width 0.5s ease;`;
+
+      barOuter.appendChild(barInner);
+      row.appendChild(labelRow);
+      row.appendChild(barOuter);
       resultsDisplay.appendChild(row);
     });
   }
