@@ -227,5 +227,9 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', initPoll);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPoll);
+  } else {
+    initPoll();
+  }
 })();
