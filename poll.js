@@ -79,41 +79,61 @@ const firebaseConfig = {
   appId: "1:490514847465:web:48532a16bca89b83534278",
   measurementId: "G-9Z97SYN65L"
 };
-
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  async function ensureSignedIn() {
+    if (!auth.currentUser) {
+        await auth.signInAnonymously();
+    }
+    return auth.currentUser.uid;
+}
   const DB_URL = `https://${firebaseConfig.projectId}-default-rtdb.asia-southeast1.firebasedatabase.app`;
 
   /** Returns the vote counts object for the given question number from Firebase. */
   async function getVoteCounts(questionNum) {
     try {
-      const response = await fetch(`${DB_URL}/pollResults/${questionNum}.json`);
-      const data = await response.json();
-      return data || {};
+        const response = await fetch(`${DB_URL}/pollResults/${questionNum}/counts.json`);
+        const data = await response.json();
+        return data || {};
     } catch (e) {
-      console.error("Firebase fetch failed", e);
-      return {};
+        console.error("Firebase fetch failed", e);
+        return {};
     }
-  }
+}
 
   /** Increments the vote count for a specific option in Firebase.
    *  Writes back all option counts for the question in one PUT to minimize writes.
    */
   async function recordVote(questionNum, optionName, allOptions) {
     try {
-      const currentCounts = await getVoteCounts(questionNum);
-      const newCounts = {};
-      allOptions.forEach(opt => {
-        newCounts[opt] = currentCounts[opt] || 0;
-      });
-      newCounts[optionName] += 1;
-      await fetch(`${DB_URL}/pollResults/${questionNum}.json`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newCounts)
-      });
+        const uid = await ensureSignedIn(); // 🔑 NEW
+        const token = await auth.currentUser.getIdToken(); // 🔑 NEW
+
+        const currentCounts = await getVoteCounts(questionNum);
+        const newCounts = {};
+        allOptions.forEach(opt => {
+            newCounts[opt] = currentCounts[opt] || 0;
+        });
+        newCounts[optionName] += 1;
+
+        // Write the vote counts
+        await fetch(`${DB_URL}/pollResults/${questionNum}/counts.json?auth=${token}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newCounts)
+        });
+
+        // Mark this user as having voted
+        await fetch(`${DB_URL}/pollResults/${questionNum}/voters/${uid}.json?auth=${token}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(true)
+        });
+
     } catch (e) {
-      console.error("Firebase save failed", e);
+        console.error("Firebase save failed", e);
     }
-  }
+}
 
   /** Returns the key used to check whether the user has already voted. */
   function hasVotedKey(questionNum) {
