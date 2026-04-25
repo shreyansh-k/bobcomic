@@ -70,17 +70,17 @@
   // Firebase configuration & vote storage helpers
   // ---------------------------------------------------------------------------
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCMOmdGYAObQaqDRpjHFteBe60nQD6iygA",
-    authDomain: "poll-26ec4.firebaseapp.com",
-    projectId: "poll-26ec4",
-    storageBucket: "poll-26ec4.firebasestorage.app",
-    messagingSenderId: "490514847465",
-    appId: "1:490514847465:web:48532a16bca89b83534278",
-    measurementId: "G-9Z97SYN65L"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyCMOmdGYAObQaqDRpjHFteBe60nQD6iygA",
+  authDomain: "poll-26ec4.firebaseapp.com",
+  projectId: "poll-26ec4",
+  storageBucket: "poll-26ec4.firebasestorage.app",
+  messagingSenderId: "490514847465",
+  appId: "1:490514847465:web:48532a16bca89b83534278",
+  measurementId: "G-9Z97SYN65L"
+};
 
-  const DB_URL = `https://${firebaseConfig.projectId}-default-rtdb.firebaseio.com`;
+  const DB_URL = `https://${firebaseConfig.projectId}-default-rtdb.asia-southeast1.firebasedatabase.app`;
 
   /** Returns the vote counts object for the given question number from Firebase. */
   async function getVoteCounts(questionNum) {
