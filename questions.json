@@ -238,16 +238,16 @@
     ]
   },
   "35": {
-    "question": "E-book or Physical book?",
+    "question": "E-book or Paper book?",
     "options": [
       "E-book",
-      "Physical book"
+      "Paper book"
     ]
   },
   "36": {
-    "question": "Coke or Pepsi?",
+    "question": "Which drink do you like more?",
     "options": [
-      "Coke",
+      "Coca-Cola",
       "Pepsi"
     ]
   },
@@ -287,10 +287,10 @@
     ]
   },
   "42": {
-    "question": "Fiction or Non-fiction?",
+    "question": "Do you prefer stories or real-life books?",
     "options": [
-      "Fiction",
-      "Non-fiction"
+      "Stories",
+      "Real-life books"
     ]
   },
   "43": {
@@ -315,10 +315,10 @@
     ]
   },
   "46": {
-    "question": "Modern or Vintage?",
+    "question": "Do you prefer modern or old-fashioned things?",
     "options": [
       "Modern",
-      "Vintage"
+      "Old-fashioned"
     ]
   },
   "47": {
@@ -357,10 +357,10 @@
     ]
   },
   "52": {
-    "question": "Glasses or Contacts?",
+    "question": "Do you prefer glasses or contact lenses?",
     "options": [
       "Glasses",
-      "Contacts"
+      "Contact lenses"
     ]
   },
   "53": {
@@ -511,16 +511,16 @@
     ]
   },
   "74": {
-    "question": "Cinema or Netflix?",
+    "question": "Where would you rather watch a movie?",
     "options": [
       "Cinema",
       "Netflix"
     ]
   },
   "75": {
-    "question": "Radio or Spotify?",
+    "question": "Which music app do you use more?",
     "options": [
-      "Radio",
+      "YouTube Music",
       "Spotify"
     ]
   },
@@ -553,10 +553,10 @@
     ]
   },
   "80": {
-    "question": "Potato chips or Popcorn?",
+    "question": "Which snack would you pick?",
     "options": [
-      "Chips",
-      "Popcorn"
+      "Lay's",
+      "Pringles"
     ]
   },
   "81": {
@@ -623,17 +623,17 @@
     ]
   },
   "90": {
-    "question": "Introvert or Extrovert?",
+    "question": "Do you like being alone or with people?",
     "options": [
-      "Introvert",
-      "Extrovert"
+      "Alone",
+      "With people"
     ]
   },
   "91": {
-    "question": "Messy or Organized?",
+    "question": "Do you like things neat or messy?",
     "options": [
-      "Messy",
-      "Organized"
+      "Neat",
+      "Messy"
     ]
   },
   "92": {
@@ -777,24 +777,24 @@
     ]
   },
   "112": {
-    "question": "Takeout or Dine-in?",
+    "question": "Where would you rather eat?",
     "options": [
-      "Takeout",
-      "Dine-in"
+      "McDonald's",
+      "Burger King"
     ]
   },
   "113": {
-    "question": "Donut or Muffin?",
+    "question": "Which fast-food place would you choose?",
     "options": [
-      "Donut",
-      "Muffin"
+      "KFC",
+      "Subway"
     ]
   },
   "114": {
-    "question": "Cookie or Brownie?",
+    "question": "Which pizza place do you like more?",
     "options": [
-      "Cookie",
-      "Brownie"
+      "Domino's",
+      "Pizza Hut"
     ]
   },
   "115": {
@@ -868,10 +868,10 @@
     ]
   },
   "125": {
-    "question": "Black coffee or Latte?",
+    "question": "Which coffee brand would you choose?",
     "options": [
-      "Black coffee",
-      "Latte"
+      "Starbucks",
+      "Costa Coffee"
     ]
   },
   "126": {
@@ -889,42 +889,42 @@
     ]
   },
   "128": {
-    "question": "Still or Sparkling water?",
+    "question": "Do you prefer regular or fizzy water?",
     "options": [
-      "Still water",
-      "Sparkling"
+      "Regular",
+      "Fizzy"
     ]
   },
   "129": {
-    "question": "Fame or Fortune?",
+    "question": "Would you rather be famous or rich?",
     "options": [
-      "Fame",
-      "Fortune"
+      "Famous",
+      "Rich"
     ]
   },
   "130": {
-    "question": "Wisdom or Strength?",
+    "question": "Which would you rather use?",
     "options": [
-      "Wisdom",
-      "Strength"
+      "Google",
+      "Microsoft"
     ]
   },
   "131": {
-    "question": "Beauty or Brains?",
+    "question": "Would you rather be smart or creative?",
     "options": [
-      "Beauty",
-      "Brains"
+      "Smart",
+      "Creative"
     ]
   },
   "132": {
-    "question": "Love or Money?",
+    "question": "Would you rather have love or lots of money?",
     "options": [
       "Love",
       "Money"
     ]
   },
   "133": {
-    "question": "Past or Future?",
+    "question": "Would you rather see the past or the future?",
     "options": [
       "Past",
       "Future"
@@ -1015,24 +1015,24 @@
     ]
   },
   "146": {
-    "question": "Boil or Fry?",
+    "question": "How do you like your food cooked?",
     "options": [
-      "Boil",
-      "Fry"
+      "Boiled",
+      "Fried"
     ]
   },
   "147": {
-    "question": "Bake or Saut\u00e9?",
+    "question": "Do you prefer baked or grilled food?",
     "options": [
-      "Bake",
-      "Saut\u00e9"
+      "Baked",
+      "Grilled"
     ]
   },
   "148": {
-    "question": "Chop or Slice?",
+    "question": "Do you prefer food cut up or in slices?",
     "options": [
-      "Chop",
-      "Slice"
+      "Cut up",
+      "Sliced"
     ]
   },
   "149": {
@@ -1043,10 +1043,10 @@
     ]
   },
   "150": {
-    "question": "Lentils or Beans?",
+    "question": "Which food brand do you like more?",
     "options": [
-      "Lentils",
-      "Beans"
+      "Maggi",
+      "Yippee!"
     ]
   },
   "151": {
@@ -1064,9 +1064,9 @@
     ]
   },
   "153": {
-    "question": "Pepper or Chili?",
+    "question": "Do you prefer black pepper or chili?",
     "options": [
-      "Pepper",
+      "Black pepper",
       "Chili"
     ]
   },
@@ -1141,21 +1141,21 @@
     ]
   },
   "164": {
-    "question": "Hummus or Guacamole?",
+    "question": "Do you prefer hummus or guacamole?",
     "options": [
       "Hummus",
       "Guacamole"
     ]
   },
   "165": {
-    "question": "Pesto or Marinara?",
+    "question": "Do you prefer pesto or tomato sauce?",
     "options": [
       "Pesto",
-      "Marinara"
+      "Tomato sauce"
     ]
   },
   "166": {
-    "question": "Omelet or Scrambled?",
+    "question": "How do you like eggs?",
     "options": [
       "Omelet",
       "Scrambled"
@@ -1183,10 +1183,10 @@
     ]
   },
   "170": {
-    "question": "Dark chocolate or White chocolate?",
+    "question": "Which chocolate brand would you pick?",
     "options": [
-      "Dark",
-      "White"
+      "KitKat",
+      "Oreo"
     ]
   },
   "171": {
@@ -1218,7 +1218,7 @@
     ]
   },
   "175": {
-    "question": "Tape or Glue?",
+    "question": "What do you use more?",
     "options": [
       "Tape",
       "Glue"
@@ -1232,10 +1232,10 @@
     ]
   },
   "177": {
-    "question": "Desk or Sofa?",
+    "question": "Which do you use more?",
     "options": [
-      "Desk",
-      "Sofa"
+      "IKEA",
+      "Home furniture"
     ]
   },
   "178": {
@@ -1253,7 +1253,7 @@
     ]
   },
   "180": {
-    "question": "Gate or Bridge?",
+    "question": "Which would you rather cross?",
     "options": [
       "Gate",
       "Bridge"
@@ -1288,10 +1288,10 @@
     ]
   },
   "185": {
-    "question": "Island or Peninsula?",
+    "question": "Would you rather visit an island or a beach?",
     "options": [
       "Island",
-      "Peninsula"
+      "Beach"
     ]
   },
   "186": {
@@ -1302,10 +1302,10 @@
     ]
   },
   "187": {
-    "question": "Cave or Peak?",
+    "question": "Would you rather explore a cave or climb a mountain?",
     "options": [
       "Cave",
-      "Peak"
+      "Mountain"
     ]
   },
   "188": {
@@ -1330,7 +1330,7 @@
     ]
   },
   "191": {
-    "question": "Thunder or Lightning?",
+    "question": "Which weather sound do you like more?",
     "options": [
       "Thunder",
       "Lightning"
@@ -1393,31 +1393,31 @@
     ]
   },
   "200": {
-    "question": "Stop or Go?",
+    "question": "Which button would you rather press?",
     "options": [
-      "Stop",
-      "Go"
+      "Play",
+      "Stop"
     ]
   },
   "201": {
-    "question": "True or False?",
+    "question": "Do you believe it or not?",
     "options": [
-      "True",
-      "False"
+      "Yes",
+      "No"
     ]
   },
   "202": {
-    "question": "Success or Happiness?",
+    "question": "What would you choose?",
     "options": [
       "Success",
       "Happiness"
     ]
   },
   "203": {
-    "question": "Knowledge or Wealth?",
+    "question": "Would you rather be smart or wealthy?",
     "options": [
-      "Knowledge",
-      "Wealth"
+      "Smart",
+      "Wealthy"
     ]
   },
   "204": {
@@ -1456,101 +1456,101 @@
     ]
   },
   "209": {
-    "question": "Fast or Slow?",
+    "question": "Do you like things fast or slow?",
     "options": [
       "Fast",
       "Slow"
     ]
   },
   "210": {
-    "question": "Hard or Soft?",
+    "question": "Do you prefer soft or crunchy things?",
     "options": [
-      "Hard",
-      "Soft"
+      "Soft",
+      "Crunchy"
     ]
   },
   "211": {
-    "question": "Big or Small?",
+    "question": "Do you prefer a big meal or a small meal?",
     "options": [
-      "Big",
-      "Small"
+      "Big meal",
+      "Small meal"
     ]
   },
   "212": {
-    "question": "High or Low?",
+    "question": "Do you prefer things high or low?",
     "options": [
       "High",
       "Low"
     ]
   },
   "213": {
-    "question": "Near or Far?",
+    "question": "Do you prefer places nearby or far away?",
     "options": [
-      "Near",
-      "Far"
+      "Nearby",
+      "Far away"
     ]
   },
   "214": {
-    "question": "Hot or Cold?",
+    "question": "Do you like hot or cold drinks?",
     "options": [
       "Hot",
       "Cold"
     ]
   },
   "215": {
-    "question": "Old or New?",
+    "question": "Do you prefer old things or new things?",
     "options": [
       "Old",
       "New"
     ]
   },
   "216": {
-    "question": "Black or White?",
+    "question": "Which color do you like more?",
     "options": [
       "Black",
       "White"
     ]
   },
   "217": {
-    "question": "Sun or Moon?",
+    "question": "Do you prefer the sun or the moon?",
     "options": [
       "Sun",
       "Moon"
     ]
   },
   "218": {
-    "question": "Air or Water?",
+    "question": "Which do you like more?",
     "options": [
       "Air",
       "Water"
     ]
   },
   "219": {
-    "question": "Fire or Ice?",
+    "question": "Which do you think is cooler?",
     "options": [
       "Fire",
       "Ice"
     ]
   },
   "220": {
-    "question": "Land or Sea?",
+    "question": "Would you rather be near land or the sea?",
     "options": [
       "Land",
       "Sea"
     ]
   },
   "221": {
-    "question": "Mind or Body?",
+    "question": "What do you care about more?",
     "options": [
       "Mind",
       "Body"
     ]
   },
   "222": {
-    "question": "Logic or Feeling?",
+    "question": "Do you usually choose with your head or heart?",
     "options": [
-      "Logic",
-      "Feeling"
+      "Head",
+      "Heart"
     ]
   },
   "223": {
@@ -1582,119 +1582,119 @@
     ]
   },
   "227": {
-    "question": "Life or Death?",
+    "question": "Which would you rather have?",
     "options": [
-      "Life",
-      "Death"
+      "A long life",
+      "A short life"
     ]
   },
   "228": {
-    "question": "War or Peace?",
+    "question": "Would you rather live in a peaceful place or an exciting place?",
     "options": [
-      "War",
-      "Peace"
+      "Peaceful",
+      "Exciting"
     ]
   },
   "229": {
-    "question": "Rich or Famous?",
+    "question": "Would you rather have lots of money or lots of fame?",
     "options": [
-      "Rich",
-      "Famous"
+      "Money",
+      "Fame"
     ]
   },
   "230": {
-    "question": "Young or Old?",
+    "question": "Would you rather be a kid again or stay your age?",
     "options": [
-      "Young",
-      "Old"
+      "Kid again",
+      "Stay my age"
     ]
   },
   "231": {
-    "question": "Thin or Thick?",
+    "question": "Do you prefer thin or thick pizza?",
     "options": [
       "Thin",
       "Thick"
     ]
   },
   "232": {
-    "question": "Long or Short?",
+    "question": "Do you prefer long or short videos?",
     "options": [
       "Long",
       "Short"
     ]
   },
   "233": {
-    "question": "Wide or Narrow?",
+    "question": "Do you prefer a wide screen or a smaller screen?",
     "options": [
-      "Wide",
-      "Narrow"
+      "Wide screen",
+      "Smaller screen"
     ]
   },
   "234": {
-    "question": "Straight or Curved?",
+    "question": "Do you prefer straight hair or curly hair?",
     "options": [
       "Straight",
-      "Curved"
+      "Curly"
     ]
   },
   "235": {
-    "question": "Rough or Smooth?",
+    "question": "Do you prefer a smooth or crunchy snack?",
     "options": [
-      "Rough",
-      "Smooth"
+      "Smooth",
+      "Crunchy"
     ]
   },
   "236": {
-    "question": "Solid or Liquid?",
+    "question": "Which do you prefer?",
     "options": [
       "Solid",
       "Liquid"
     ]
   },
   "237": {
-    "question": "Gas or Steam?",
+    "question": "Which sounds more fun?",
     "options": [
-      "Gas",
-      "Steam"
+      "Steam",
+      "Smoke"
     ]
   },
   "238": {
-    "question": "Heavy or Light?",
+    "question": "Do you prefer light bags or heavy bags?",
     "options": [
-      "Heavy",
-      "Light"
+      "Light",
+      "Heavy"
     ]
   },
   "239": {
-    "question": "Deep or Shallow?",
+    "question": "Would you rather swim in deep or shallow water?",
     "options": [
       "Deep",
       "Shallow"
     ]
   },
   "240": {
-    "question": "Dark or Light?",
+    "question": "Do you prefer a dark room or a bright room?",
     "options": [
       "Dark",
-      "Light"
+      "Bright"
     ]
   },
   "241": {
-    "question": "Bright or Dim?",
+    "question": "Do you prefer bright lights or soft lights?",
     "options": [
       "Bright",
-      "Dim"
+      "Soft"
     ]
   },
   "242": {
-    "question": "Shiny or Dull?",
+    "question": "Do you like shiny things or simple things?",
     "options": [
       "Shiny",
-      "Dull"
+      "Simple"
     ]
   },
   "243": {
-    "question": "Sharp or Blunt?",
+    "question": "Which is more useful?",
     "options": [
       "Sharp",
       "Blunt"
@@ -1708,7 +1708,7 @@
     ]
   },
   "245": {
-    "question": "Pizza or Pasta?",
+    "question": "Which do you like more?",
     "options": [
       "Pizza",
       "Pasta"
@@ -1729,31 +1729,31 @@
     ]
   },
   "248": {
-    "question": "Beef or Lamb?",
+    "question": "Which meat do you prefer?",
     "options": [
       "Beef",
       "Lamb"
     ]
   },
   "249": {
-    "question": "Car or Bike?",
+    "question": "Which car brand would you choose?",
     "options": [
-      "Car",
-      "Bike"
+      "Toyota",
+      "Honda"
     ]
   },
   "250": {
-    "question": "Bus or Train?",
+    "question": "Which travel app would you use?",
     "options": [
-      "Bus",
-      "Train"
+      "Google Maps",
+      "Uber"
     ]
   },
   "251": {
-    "question": "Phone or Laptop?",
+    "question": "Which device brand would you choose?",
     "options": [
-      "Phone",
-      "Laptop"
+      "Apple",
+      "Samsung"
     ]
   },
   "252": {
@@ -1764,10 +1764,10 @@
     ]
   },
   "253": {
-    "question": "Game or Movie?",
+    "question": "Which gaming brand would you choose?",
     "options": [
-      "Game",
-      "Movie"
+      "PlayStation",
+      "Xbox"
     ]
   },
   "254": {
@@ -1778,10 +1778,10 @@
     ]
   },
   "255": {
-    "question": "Create or Consume?",
+    "question": "Would you rather make something or watch something?",
     "options": [
-      "Create",
-      "Consume"
+      "Make it",
+      "Watch it"
     ]
   },
   "256": {
@@ -1883,28 +1883,28 @@
     ]
   },
   "270": {
-    "question": "Fact or Fiction?",
+    "question": "Would you rather watch a true story or a made-up story?",
     "options": [
-      "Fact",
-      "Fiction"
+      "True story",
+      "Made-up story"
     ]
   },
   "271": {
-    "question": "Real or Fake?",
+    "question": "Would you rather have the real thing or a copy?",
     "options": [
       "Real",
-      "Fake"
+      "Copy"
     ]
   },
   "272": {
-    "question": "Good or Bad?",
+    "question": "Which do you prefer?",
     "options": [
       "Good",
       "Bad"
     ]
   },
   "273": {
-    "question": "Right or Wrong?",
+    "question": "Which would you rather hear?",
     "options": [
       "Right",
       "Wrong"
@@ -1960,10 +1960,10 @@
     ]
   },
   "281": {
-    "question": "Known or Unknown?",
+    "question": "Would you rather know what happens or be surprised?",
     "options": [
-      "Known",
-      "Unknown"
+      "Know",
+      "Surprised"
     ]
   },
   "282": {
@@ -1974,10 +1974,10 @@
     ]
   },
   "283": {
-    "question": "Certain or Uncertain?",
+    "question": "Do you like knowing the plan or going with the flow?",
     "options": [
-      "Certain",
-      "Uncertain"
+      "Know the plan",
+      "Go with the flow"
     ]
   },
   "284": {
@@ -1988,10 +1988,10 @@
     ]
   },
   "285": {
-    "question": "Simple or Complex?",
+    "question": "Do you prefer easy or challenging games?",
     "options": [
-      "Simple",
-      "Complex"
+      "Easy",
+      "Challenging"
     ]
   },
   "286": {
@@ -2009,10 +2009,10 @@
     ]
   },
   "288": {
-    "question": "Fast or Quality?",
+    "question": "Would you rather finish fast or do it really well?",
     "options": [
-      "Fast",
-      "Quality"
+      "Finish fast",
+      "Do it well"
     ]
   },
   "289": {
@@ -2030,24 +2030,24 @@
     ]
   },
   "291": {
-    "question": "Old school or New age?",
+    "question": "Do you prefer old-style or modern things?",
     "options": [
-      "Old school",
-      "New age"
+      "Old-style",
+      "Modern"
     ]
   },
   "292": {
-    "question": "Digital or Analog?",
+    "question": "Do you prefer digital or paper?",
     "options": [
       "Digital",
-      "Analog"
+      "Paper"
     ]
   },
   "293": {
-    "question": "Hard copy or Soft copy?",
+    "question": "Do you prefer a printed copy or a digital copy?",
     "options": [
-      "Hard copy",
-      "Soft copy"
+      "Printed",
+      "Digital"
     ]
   },
   "294": {
@@ -2114,10 +2114,10 @@
     ]
   },
   "303": {
-    "question": "Social media or Reality?",
+    "question": "Do you spend more time on social media or in real life?",
     "options": [
       "Social media",
-      "Reality"
+      "Real life"
     ]
   },
   "304": {
@@ -2135,10 +2135,10 @@
     ]
   },
   "306": {
-    "question": "Bluetooth or Cable?",
+    "question": "Which wireless brand do you know better?",
     "options": [
-      "Bluetooth",
-      "Cable"
+      "JBL",
+      "Sony"
     ]
   },
   "307": {
@@ -2163,17 +2163,17 @@
     ]
   },
   "310": {
-    "question": "Vertical or Horizontal?",
+    "question": "Do you prefer a phone held up and down or sideways?",
     "options": [
-      "Vertical",
-      "Horizontal"
+      "Up and down",
+      "Sideways"
     ]
   },
   "311": {
-    "question": "Landscape or Portrait?",
+    "question": "Do you prefer a photo that is wide or tall?",
     "options": [
-      "Landscape",
-      "Portrait"
+      "Wide",
+      "Tall"
     ]
   },
   "312": {
@@ -2184,17 +2184,17 @@
     ]
   },
   "313": {
-    "question": "Triangle or Hexagon?",
+    "question": "Which shape do you like more?",
     "options": [
       "Triangle",
       "Hexagon"
     ]
   },
   "314": {
-    "question": "Primary colors or Pastel?",
+    "question": "Do you prefer bright colors or soft colors?",
     "options": [
-      "Primary",
-      "Pastel"
+      "Bright colors",
+      "Soft colors"
     ]
   },
   "315": {
@@ -2212,24 +2212,24 @@
     ]
   },
   "317": {
-    "question": "Cotton or Polyester?",
+    "question": "Which sports brand do you prefer?",
     "options": [
-      "Cotton",
-      "Polyester"
+      "Nike",
+      "Adidas"
     ]
   },
   "318": {
-    "question": "Wood or Metal?",
+    "question": "Which furniture brand sounds better?",
     "options": [
-      "Wood",
-      "Metal"
+      "IKEA",
+      "Home Centre"
     ]
   },
   "319": {
-    "question": "Glass or Plastic?",
+    "question": "Which bottle brand would you choose?",
     "options": [
-      "Glass",
-      "Plastic"
+      "Hydro Flask",
+      "Stanley"
     ]
   },
   "320": {
@@ -2254,10 +2254,10 @@
     ]
   },
   "323": {
-    "question": "Walking or Public transport?",
+    "question": "How do you prefer to get around?",
     "options": [
-      "Walking",
-      "Transport"
+      "Walk",
+      "Public transport"
     ]
   },
   "324": {
@@ -2268,14 +2268,14 @@
     ]
   },
   "325": {
-    "question": "E-bike or Manual bike?",
+    "question": "Which bike would you choose?",
     "options": [
       "E-bike",
-      "Manual"
+      "Regular bike"
     ]
   },
   "326": {
-    "question": "Electric car or Petrol?",
+    "question": "Which car would you choose?",
     "options": [
       "Electric",
       "Petrol"
@@ -2303,21 +2303,21 @@
     ]
   },
   "330": {
-    "question": "Early check-in or Late check-out?",
+    "question": "Which sounds better?",
     "options": [
-      "Check-in",
-      "Check-out"
+      "Check in early",
+      "Leave late"
     ]
   },
   "331": {
-    "question": "Carry-on or Checked bag?",
+    "question": "How do you like to travel?",
     "options": [
-      "Carry-on",
-      "Checked"
+      "Small bag",
+      "Big checked bag"
     ]
   },
   "332": {
-    "question": "City break or Nature retreat?",
+    "question": "For a trip, would you choose a city or nature?",
     "options": [
       "City",
       "Nature"
@@ -2331,7 +2331,7 @@
     ]
   },
   "334": {
-    "question": "Airbnb or Resort?",
+    "question": "Where would you rather stay?",
     "options": [
       "Airbnb",
       "Resort"
@@ -2345,24 +2345,24 @@
     ]
   },
   "336": {
-    "question": "Guided tour or Independent?",
+    "question": "On a trip, would you rather have a guide or explore yourself?",
     "options": [
-      "Guided",
-      "Independent"
+      "Guide",
+      "Explore myself"
     ]
   },
   "337": {
-    "question": "Active holiday or Relaxing?",
+    "question": "What kind of holiday do you prefer?",
     "options": [
       "Active",
       "Relaxing"
     ]
   },
   "338": {
-    "question": "Cold weather or Tropical?",
+    "question": "Which weather do you prefer?",
     "options": [
       "Cold",
-      "Tropical"
+      "Warm"
     ]
   },
   "339": {
@@ -2380,16 +2380,16 @@
     ]
   },
   "341": {
-    "question": "History museum or Science museum?",
+    "question": "Which museum would you visit?",
     "options": [
       "History",
       "Science"
     ]
   },
   "342": {
-    "question": "Art gallery or Street art?",
+    "question": "Which kind of art do you like?",
     "options": [
-      "Gallery",
+      "Art gallery",
       "Street art"
     ]
   },
@@ -2422,45 +2422,45 @@
     ]
   },
   "347": {
-    "question": "Streaming or Cable TV?",
+    "question": "Which streaming service would you choose?",
     "options": [
-      "Streaming",
-      "Cable"
+      "Netflix",
+      "Disney+"
     ]
   },
   "348": {
-    "question": "Smart TV or Laptop?",
+    "question": "Which TV brand would you choose?",
     "options": [
-      "Smart TV",
-      "Laptop"
+      "Samsung",
+      "LG"
     ]
   },
   "349": {
-    "question": "Speaker or Headphones?",
+    "question": "Which speaker brand do you prefer?",
     "options": [
-      "Speaker",
-      "Headphones"
+      "JBL",
+      "Bose"
     ]
   },
   "350": {
-    "question": "Earbuds or Over-ear?",
+    "question": "Which headphones would you choose?",
     "options": [
       "Earbuds",
       "Over-ear"
     ]
   },
   "351": {
-    "question": "Noise canceling or Ambient?",
+    "question": "What do you prefer for headphones?",
     "options": [
-      "NC",
-      "Ambient"
+      "Block outside noise",
+      "Hear outside sounds"
     ]
   },
   "352": {
-    "question": "Playlist or Album?",
+    "question": "Where would you make a playlist?",
     "options": [
-      "Playlist",
-      "Album"
+      "Spotify",
+      "YouTube Music"
     ]
   },
   "353": {
@@ -2471,24 +2471,24 @@
     ]
   },
   "354": {
-    "question": "Lyrics or Melody?",
+    "question": "What do you notice more in a song?",
     "options": [
       "Lyrics",
       "Melody"
     ]
   },
   "355": {
-    "question": "Live music or Studio?",
+    "question": "How do you like music?",
     "options": [
       "Live",
-      "Studio"
+      "Recorded"
     ]
   },
   "356": {
-    "question": "Singing or Playing instrument?",
+    "question": "Which would you rather do?",
     "options": [
-      "Singing",
-      "Instrument"
+      "Sing",
+      "Play an instrument"
     ]
   },
   "357": {
@@ -2506,9 +2506,9 @@
     ]
   },
   "359": {
-    "question": "Night club or Bar?",
+    "question": "Where would you rather hang out at night?",
     "options": [
-      "Club",
+      "Night club",
       "Bar"
     ]
   },
@@ -2520,7 +2520,7 @@
     ]
   },
   "361": {
-    "question": "Indoor hobby or Outdoor?",
+    "question": "What kind of hobbies do you like?",
     "options": [
       "Indoor",
       "Outdoor"
@@ -2541,10 +2541,10 @@
     ]
   },
   "364": {
-    "question": "Drawing or Sculpting?",
+    "question": "What would you rather do?",
     "options": [
-      "Drawing",
-      "Sculpting"
+      "Draw",
+      "Make things"
     ]
   },
   "365": {
@@ -2562,14 +2562,14 @@
     ]
   },
   "367": {
-    "question": "Gardening or DIY?",
+    "question": "What would you rather do?",
     "options": [
-      "Gardening",
-      "DIY"
+      "Garden",
+      "DIY projects"
     ]
   },
   "368": {
-    "question": "Knitting or Painting?",
+    "question": "Which hobby sounds better?",
     "options": [
       "Knitting",
       "Painting"
@@ -2583,10 +2583,16 @@
     ]
   },
   "370": {
-    "question": "Poker or Blackjack?",
+    "question": "Which game would you play?",
     "options": [
-      "Poker",
-      "Blackjack"
+      "Badminton",
+      "Football",
+      "Basketball",
+      "American Football",
+      "Tennis",
+      "Cricket",
+      "Volleyball",
+      "Swimming"
     ]
   },
   "371": {
@@ -2597,7 +2603,7 @@
     ]
   },
   "372": {
-    "question": "Sudoku or Crossword?",
+    "question": "Which puzzle would you rather do?",
     "options": [
       "Sudoku",
       "Crossword"
