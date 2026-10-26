@@ -8,427 +8,346 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="files/favicon.jpg" type="image/jpg">
+  <style>
+    .taco {
+      position: fixed;
+      font-size: 2rem;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      from {
+        top: -50px;
+        opacity: 1;
+      }
+      to {
+        top: var(--fall-bottom);
+        opacity: 1;
+      }
+    }
+
+    th, td { 
+      border: 1px solid #ccc; 
+      padding: 12px; 
+      text-align: left; 
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar"> 
-      <div class="nav-brand">
-        <i class="fas fa-book-open"></i>
-        <span>Bob Comics</span>
+  <nav class="navbar"> 
+    <div class="nav-brand">
+      <i class="fas fa-book-open"></i>
+      <span>Bob Comics</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="home.htm">Comics</a>
+      <a href="games.htm">Games</a>
+      <a href="phonk.html">Songs</a>
+      <a href="thecrazysection.htm">Get Traumatized</a>
+      <a href="author.html">Meet the authors!</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Bob Comics</h1>
+      <div class="hero-description">
+        <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
+        <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
+        <p class="tagline">So, lock your cookies🍪, not your doors.</p>
       </div>
-      <div class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="home.htm">Comics</a>
-        <a href="games.htm">Games</a>
-        <a href="phonk.html">Songs</a>
-        <a href="thecrazysection.htm">Get Traumatized</a>
-        <a href="author.html">Meet the authors!</a>
+    </div>
+  </header>
+
+  <h1 id="funLabel" style="text-align: center;"></h1>
+
+  <main>
+    <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" alt="Bob's Aura">
+    <h1>Lookie at this cool picture of Bob!</h1>
+    <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
+
+    <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
+      <h2>Poll: What's your favorite Bob moment?</h2>
+      <div id="poll-choices">
+        <button class="btn-primary poll-option" data-option="Stealing pens" style="margin: 5px;">Stealing pens</button>
+        <button class="btn-primary poll-option" data-option="Distracted by snacks" style="margin: 5px;">Distracted by snacks</button>
+        <button class="btn-primary poll-option" data-option="Escaping slowly" style="margin: 5px;">Escaping slowly</button>
       </div>
-    </nav>
-  
-
-
-    <header class="hero">
-      <div class="hero-content">
-        <h1>Welcome to Bob Comics</h1>
-    
-        <div class="hero-description">
-          <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
-          <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
-          <p class="tagline">So, lock your cookies🍪, not your doors.</p>
-        </div>
+      <div id="poll-results" style="display: none; margin-top: 20px;">
+        <h3>Results</h3>
+        <div id="results-display" style="text-align: left; max-width: 400px; margin: 0 auto;"></div>
       </div>
-    </header>
-<h1 id="funLabel" style="text-align: center;"></h1>
-<style>
-  .taco {
-    position: fixed;
-    font-size: 2rem;
-    animation: fall 3s linear forwards;
-  }
+    </section>
 
-
-  @keyframes fall {
-    from {
-      top: -50px;
-      opacity: 1;
-    }
-    to {
-      top: var(--fall-bottom);
-      opacity: 1;
-    }
-  }
-</style>
-
-<script>
-function updateFallBottom() {
-  const pageHeight = document.documentElement.scrollHeight;
-  document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 50) + "px");
-}
-updateFallBottom();
-window.addEventListener("resize", updateFallBottom);
-
-
-  function tacoCreate() {
-    const taco = document.createElement("div");
-    const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
-    const today = new Date();
-    const month = today.getMonth()
-    let emoji = dayEmojis[today.getDay()];
-    if (month === 11) {
-      emoji = "❄️";
-    }
-    const mmonth = now.getMonth() + 1;
-    const day = now.getDate();
-    const isithalloween = `{day}${mmonth}`;
-    if (isithalloween == 3110) {
-      emoji = "🎃";
+    <section class="feedback">
+      <h2>⚽︎Messi Vs Ronaldo!!!⚽︎</h2>
+      <p>Finally answer the question of WHO IS THE G.O.A.T🐐⚽︎.</p>
       
-      const scarylaugh = new Audio('laugh.mp3');
-
-// Hook into any user interaction anywhere on the page
-      window.addEventListener('click', () => {
-        scarylaugh.play()
-        .then(() => console.log("Audio playing successfully!"))
-        .catch(e => console.error("Playback blocked:", e));
-        }, { once: true }); // '{ once: true }' auto-removes the listener after it fires once
-      
-    }
-    if (isithalloween == 2512) {
-      emoji = "🎁"
-      const bells = new Audio('bells.mp3')
-     
-      window.addEventListener('click', () => {
-        bells.play()
-        .then(() => console.log("Audio playing successfully!"))
-        .catch(e => console.error("Playback blocked:", e));
-        }, { once: true }); // '{ once: true }' auto-removes the listener after it fires once
-      
-    }
-    }
-    taco.classList.add("taco");
-    taco.innerText = emoji;
-    taco.style.left = Math.random() * 100 + "vw";
-    taco.style.top = "-50px";
-    taco.addEventListener("animationend", () => taco.remove());
-    document.body.appendChild(taco);
-  }
-
-  let tacosStarted = false;
-  function startTacos() {
-    if (!tacosStarted && window.scrollY > 0) {
-      tacosStarted = true;
-      setInterval(tacoCreate, 300);
-      window.removeEventListener("scroll", startTacos);
-    }
-  }
-
-  window.addEventListener("scroll", startTacos);
-</script>
-    <main>
-      <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border:2px; solid#000;">
-      <h1>Lookie at this cool picture of Bob!</h1>
-      <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
-      <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
-        <h2>Poll: What's your favorite Bob moment?</h2>
-        <div id="poll-choices">
-          <button class="btn-primary poll-option" data-option="Stealing pens" style="margin: 5px;">Stealing pens</button>
-          <button class="btn-primary poll-option" data-option="Distracted by snacks" style="margin: 5px;">Distracted by snacks</button>
-          <button class="btn-primary poll-option" data-option="Escaping slowly" style="margin: 5px;">Escaping slowly</button>
-        </div>
-        <div id="poll-results" style="display: none; margin-top: 20px;">
-          <h3>Results</h3>
-          <div id="results-display" style="text-align: left; max-width: 400px; margin: 0 auto;"></div>
-        </div>
-      </section>
-       <section class="feedback">
-        <h2>⚽︎Messi Vs Ronaldo!!!⚽︎</h2>
-        <p>Finally answer the question of WHO IS THE G.O.A.T🐐⚽︎.</p>
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated Table</title>
-    <style>
-        th { border: 1px solid #ccc; padding: 12px; text-align: left; }
-        td { border: 1px solid #ccc; padding: 12px; text-align: left; }
-    </style>
-</head>
-<body>
-    <table style="border: 5px dashed #000000; border-collapse: collapse; width: 100%; margin: 20px auto;">
+      <table style="border: 5px dashed #000000; border-collapse: collapse; width: 100%; margin: 20px auto;">
         <thead>
-            <tr>
-                <th>Category(As of july 7 2026)</th>
-                <th>Messi 𓃵❿</th>
-                <th>Ronaldo 𓃵</th>
-            </tr>
+          <tr>
+            <th>Category(As of july 7 2026)</th>
+            <th>Messi 𓃵❿</th>
+            <th>Ronaldo 𓃵</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Career Goals</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">917</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">974</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Goals Per match</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">0.79</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">0.74</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Minutes per goal</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">104</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">111</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Assists</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">453</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">307</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Ballon d'Or</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">8</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">5</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">World Cup titles</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">1(2022)</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">0</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Champions League</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">4</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">5</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">League Titles</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">10 La Liga, 2 Ligue 1, 1 MLS</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">3 Premier League, 2 La Liga, 2 Serie A</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Club Career Goals</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">794</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">828</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Hat-tricks</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">60</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">66</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Major Trophies</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">40+</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">30+</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">Sources:</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">sports ndtv:https://sports.ndtv.com/fifa-world-cup-2026/cristiano-ronaldo-vs-lionel-messi-debate-officially-over-theres-a-clear-winner-11738030?</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">https://sports.yahoo.com/articles/lionel-messi-vs-cristiano-ronaldo-132716598.html?utm_source=copilot.com yahoo article</td>
-        </tr>
-        <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">So, WHO IS THE GOAT? There can be only 1 goat.</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;">MESSI IS THE GOAT:  MESSI HAS MORE ASSISTS, BALLON D'ORS,MORE WORLD CUP TITLES MORE INTERNATIONAL TROPHIES MORE AND MORE CLUB TROPHIES.</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;font-style: normal;text-decoration: none;"> RONALDO ONLY HAS MORE CAREER GOALS MORE CHAMPION LEAGUE TITLES AND MORE INTERNATIONAL GOALS.</td>
-        </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Career Goals</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">917</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">974</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Goals Per match</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0.79</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0.74</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Minutes per goal</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">104</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">111</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Assists</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">453</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">307</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Ballon d'Or</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">8</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">5</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">World Cup titles</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">1(2022)</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Champions League</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">4</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">5</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">League Titles</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">10 La Liga, 2 Ligue 1, 1 MLS</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">3 Premier League, 2 La Liga, 2 Serie A</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Club Career Goals</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">794</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">828</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Hat-tricks</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">60</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">66</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Major Trophies</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">40+</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">30+</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Sources:</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">sports ndtv: https://sports.ndtv.com/fifa-world-cup-2026/cristiano-ronaldo-vs-lionel-messi-debate-officially-over-theres-a-clear-winner-11738030?</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">https://sports.yahoo.com/articles/lionel-messi-vs-cristiano-ronaldo-132716598.html</td>
+          </tr>
+          <tr>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">So, WHO IS THE GOAT? There can be only 1 goat.</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">MESSI IS THE GOAT: MESSI HAS MORE ASSISTS, BALLON D'ORS, MORE WORLD CUP TITLES, MORE INTERNATIONAL TROPHIES, AND MORE CLUB TROPHIES.</td>
+            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">RONALDO ONLY HAS MORE CAREER GOALS, MORE CHAMPIONS LEAGUE TITLES, AND MORE INTERNATIONAL GOALS.</td>
+          </tr>
         </tbody>
-    </table>
-</body>
-</html>
-      </section>
-    </main>
+      </table>
+    </section>
 
-      <section class="features">
-        <h2>Explore Bob's World</h2>
-        <div class="feature-grid">
-          <div class="feature-card">
-            <i class="fas fa-gamepad"></i>
-            <h3>Games</h3>
-            <p>Play exciting games featuring Bob and friends!</p>
-            <a href="games.htm" class="btn-primary">Play Now</a>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-book"></i>
-            <h3>Comics</h3>
-            <p>Read all our hilarious comic adventures!</p>
-            <a href="home.htm" class="btn-primary">Read Comics</a>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-music"></i>
-            <h3>Songs!</h3>
-            <p>Play popular phonk!</p>
-            <a href="phonk.html" class="btn-primary">Play now!</a>
-          </div>
-        </div>
-    
+    <section class="features">
+      <h2>Explore Bob's World</h2>
+      <div class="feature-grid">
         <div class="feature-card">
-          <i class="fas -fa-face-grin-wide"></i>
-          <h3>Get traumatized!</h3>
-          <p>Click only if you have the guts to!</p>
-          <a href="thecrazysection.html" class="btn-primary">Click!</a>
-          </div>
-      </section>
-
-      <section class="feedback">
-        <h2>We'd Love Your Feedback!</h2>
-        <p>Help us make Bob's adventures even better.</p>
-        <a href="feedback.htm" class="btn-secondary">Share Your Thoughts</a>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-content">
-        <div class="footer-brand">
-          <i class="fas fa-book-open"></i>
-          <span>Bob Comics Inc</span>
+          <i class="fas fa-gamepad"></i>
+          <h3>Games</h3>
+          <p>Play exciting games featuring Bob and friends!</p>
+          <a href="games.htm" class="btn-primary">Play Now</a>
         </div>
-        <div class="footer-bottom" id="footer">
-          <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+        <div class="feature-card">
+          <i class="fas fa-book"></i>
+          <h3>Comics</h3>
+          <p>Read all our hilarious comic adventures!</p>
+          <a href="home.htm" class="btn-primary">Read Comics</a>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-music"></i>
+          <h3>Songs!</h3>
+          <p>Play popular phonk!</p>
+          <a href="phonk.html" class="btn-primary">Play now!</a>
         </div>
       </div>
-    </footer>
 
-<script>
-// 3D Scrolling Effects with Performance Optimization
-(function() {
-  // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
-  // If user prefers reduced motion, skip all 3D effects
-  if (prefersReducedMotion) {
-    return;
-  }
-  
-  // Throttle scroll events using requestAnimationFrame
-  let ticking = false;
-  let lastScrollY = 0;
-  
-  // Cache DOM elements
-  const hero = document.querySelector('.hero');
-  const heroTitle = document.querySelector('.hero h1');
-  const heroDescription = document.querySelector('.hero-description');
-  const featureCards = document.querySelectorAll('.feature-card');
-  
-  function update3DEffects() {
-    const scrollY = window.scrollY;
-    const windowHeight = window.innerHeight;
-    
-    // Parallax effect for hero section (with boundary check)
-    if (heroTitle && heroDescription && hero) {
-      const heroHeight = hero.offsetHeight;
-      const maxScroll = heroHeight + 100; // Add some buffer
+      <div class="feature-card">
+        <i class="fas fa-face-grin-wide"></i>
+        <h3>Get traumatized!</h3>
+        <p>Click only if you have the guts to!</p>
+        <a href="thecrazysection.htm" class="btn-primary">Click!</a>
+      </div>
+    </section>
+
+    <section class="feedback">
+      <h2>We'd Love Your Feedback!</h2>
+      <p>Help us make Bob's adventures even better.</p>
+      <a href="feedback.htm" class="btn-secondary">Share Your Thoughts</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <i class="fas fa-book-open"></i>
+        <span>Bob Comics Inc</span>
+      </div>
+      <div class="footer-bottom" id="footer">
+        <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateFallBottom() {
+      const pageHeight = document.documentElement.scrollHeight;
+      document.documentElement.style.setProperty("--fall-bottom", (pageHeight - 50) + "px");
+    }
+    updateFallBottom();
+    window.addEventListener("resize", updateFallBottom);
+
+    function tacoCreate() {
+      const taco = document.createElement("div");
+      const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
+      const today = new Date();
+      const month = today.getMonth();
+      let emoji = dayEmojis[today.getDay()];
       
-      // Only apply parallax while hero is visible
-      if (scrollY < maxScroll) {
-        const heroOffset = Math.min(scrollY * 0.5, maxScroll * 0.5);
-        const descriptionOffset = Math.min(scrollY * 0.3, maxScroll * 0.3);
-        
-        // Apply 3D transforms with parallax
-        heroTitle.style.transform = `translateY(${heroOffset}px) translateZ(50px)`;
-        heroDescription.style.transform = `translateY(${descriptionOffset}px) translateZ(30px)`;
+      if (month === 11) {
+        emoji = "❄️";
+      }
+
+      const mmonth = today.getMonth() + 1;
+      const day = today.getDate();
+      const isithalloween = `${day}${mmonth}`;
+
+      if (isithalloween === "3110") {
+        emoji = "🎃";
+        const scarylaugh = new Audio('laugh.mp3');
+        window.addEventListener('click', () => {
+          scarylaugh.play()
+            .then(() => console.log("Audio playing successfully!"))
+            .catch(e => console.error("Playback blocked:", e));
+        }, { once: true });
+      }
+
+      if (isithalloween === "2512") {
+        emoji = "🎁";
+        const bells = new Audio('bells.mp3');
+        window.addEventListener('click', () => {
+          bells.play()
+            .then(() => console.log("Audio playing successfully!"))
+            .catch(e => console.error("Playback blocked:", e));
+        }, { once: true });
+      }
+
+      taco.classList.add("taco");
+      taco.innerText = emoji;
+      taco.style.left = Math.random() * 100 + "vw";
+      taco.style.top = "-50px";
+      taco.addEventListener("animationend", () => taco.remove());
+      document.body.appendChild(taco);
+    }
+
+    let tacosStarted = false;
+    function startTacos() {
+      if (!tacosStarted && window.scrollY > 0) {
+        tacosStarted = true;
+        setInterval(tacoCreate, 300);
+        window.removeEventListener("scroll", startTacos);
       }
     }
-    
-    // 3D rotation effects for feature cards on scroll (only when not hovering)
-    featureCards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const cardTop = rect.top;
-      const cardCenter = cardTop + rect.height / 2;
-      
-      // Calculate if card is in viewport
-      if (cardTop < windowHeight && cardTop > -rect.height) {
-        const distanceFromCenter = (cardCenter - windowHeight / 2) / windowHeight;
-        const rotateX = distanceFromCenter * -20; // Rotate based on position
-        const rotateY = Math.sin(distanceFromCenter * Math.PI) * 15;
-        const translateZ = Math.max(0, (1 - Math.abs(distanceFromCenter)) * 30);
-        
-        // Check if card is being hovered - if so, don't override hover transforms
-        if (!card.matches(':hover')) {
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+
+    window.addEventListener("scroll", startTacos);
+
+    // 3D Scrolling Effects with Performance Optimization
+    (function() {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      let ticking = false;
+
+      const hero = document.querySelector('.hero');
+      const heroTitle = document.querySelector('.hero h1');
+      const heroDescription = document.querySelector('.hero-description');
+      const featureCards = document.querySelectorAll('.feature-card');
+
+      function update3DEffects() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+
+        if (heroTitle && heroDescription && hero) {
+          const heroHeight = hero.offsetHeight;
+          const maxScroll = heroHeight + 100;
+
+          if (scrollY < maxScroll) {
+            const heroOffset = Math.min(scrollY * 0.5, maxScroll * 0.5);
+            const descriptionOffset = Math.min(scrollY * 0.3, maxScroll * 0.3);
+
+            heroTitle.style.transform = `translateY(${heroOffset}px) translateZ(50px)`;
+            heroDescription.style.transform = `translateY(${descriptionOffset}px) translateZ(30px)`;
+          }
+        }
+
+        featureCards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const cardTop = rect.top;
+          const cardCenter = cardTop + rect.height / 2;
+
+          if (cardTop < windowHeight && cardTop > -rect.height) {
+            const distanceFromCenter = (cardCenter - windowHeight / 2) / windowHeight;
+            const rotateX = distanceFromCenter * -20;
+            const rotateY = Math.sin(distanceFromCenter * Math.PI) * 15;
+            const translateZ = Math.max(0, (1 - Math.abs(distanceFromCenter)) * 30);
+
+            if (!card.matches(':hover')) {
+              card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+            }
+          }
+        });
+
+        ticking = false;
+      }
+
+      function requestTick() {
+        if (!ticking) {
+          window.requestAnimationFrame(update3DEffects);
+          ticking = true;
         }
       }
-    });
-    
-    lastScrollY = scrollY;
-    ticking = false;
-  }
-  
-  function requestTick() {
-    if (!ticking) {
-      window.requestAnimationFrame(update3DEffects);
-      ticking = true;
-    }
-  }
-  
-  // Debounce resize handler
-  let resizeTimeout;
-  function handleResize() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(requestTick, 150);
-  }
-  
-  // Initialize on load
-  update3DEffects();
-  
-  // Listen for scroll events
-  window.addEventListener('scroll', requestTick, { passive: true });
-  
-  // Update on resize (debounced)
-  window.addEventListener('resize', handleResize, { passive: true });
-})();
-</script>
 
-<!-- Easter Eggs Script -->
-<script src="easter-eggs.js"></script>
-#firebase sdks
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<!-- Daily Poll Script -->
-<script src="poll.js"></script>
+      let resizeTimeout;
+      function handleResize() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(requestTick, 150);
+      }
+
+      update3DEffects();
+      window.addEventListener('scroll', requestTick, { passive: true });
+      window.addEventListener('resize', handleResize, { passive: true });
+    })();
+  </script>
+
+  <!-- Easter Eggs Script -->
+  <script src="easter-eggs.js"></script>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <!-- Daily Poll Script -->
+  <script src="poll.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
