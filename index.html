@@ -77,6 +77,34 @@ window.addEventListener("resize", updateFallBottom);
     if (month === 11) {
       emoji = "❄️";
     }
+    const mmonth = now.getMonth() + 1;
+    const day = now.getDate();
+    const isithalloween = `{day}${mmonth}`;
+    if (isithalloween == 3110) {
+      emoji = "🎃";
+      const scarylaugh = new Audio('laugh.mp3');
+      const scarylaugh = new Audio('laugh.mp3');
+
+// Hook into any user interaction anywhere on the page
+      window.addEventListener('click', () => {
+        scarylaugh.play()
+        .then(() => console.log("Audio playing successfully!"))
+        .catch(e => console.error("Playback blocked:", e));
+        }, { once: true }); // '{ once: true }' auto-removes the listener after it fires once
+      
+    }
+    if (isithalloween == 2512) {
+      emoji = "🎁"
+      const bells = new Audio('bells.mp3')
+     
+      window.addEventListener('click', () => {
+        bells.play()
+        .then(() => console.log("Audio playing successfully!"))
+        .catch(e => console.error("Playback blocked:", e));
+        }, { once: true }); // '{ once: true }' auto-removes the listener after it fires once
+      
+    }
+    }
     taco.classList.add("taco");
     taco.innerText = emoji;
     taco.style.left = Math.random() * 100 + "vw";
