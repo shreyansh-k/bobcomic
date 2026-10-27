@@ -103,7 +103,7 @@
         <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
         <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
         <p class="tagline">So, lock your cookies🍪, not your doors.</p>
-        <p class="special_messsage" id="specialmessage"></p>
+        <p class="special_message" id="specialmessage"></p>
       </div>
     </div>
   </header>
@@ -268,6 +268,57 @@
     updateFallBottom();
     window.addEventListener("resize", updateFallBottom);
 
+    // Initialize Holiday Events on Page Load
+    (function initHolidayEvents() {
+      const today = new Date();
+      const mmonth = today.getMonth() + 1;
+      const day = today.getDate();
+      const isithalloween = `${day}${mmonth}`;
+      const messageElem = document.getElementById('specialmessage');
+
+      // Halloween Event (October 31)
+      if (isithalloween === "3110") {
+        if (messageElem) {
+          messageElem.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
+          messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
+        }
+        const scarylaugh = new Audio('laugh.mp3');
+        window.addEventListener('click', () => {
+          scarylaugh.play()
+            .then(() => console.log("Audio playing successfully!"))
+            .catch(e => console.error("Playback blocked:", e));
+        }, { once: true });
+      }
+
+      // Christmas Event (December 25)
+      if (isithalloween === "2512") {
+        if (messageElem) {
+          messageElem.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌 P.S. - FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
+          messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
+        }
+        const bells = new Audio('bells.mp3');
+        window.addEventListener('click', () => {
+          bells.play()
+            .then(() => console.log("Audio playing successfully!"))
+            .catch(e => console.error("Playback blocked:", e));
+        }, { once: true });
+
+        // Add runner overlay across top hero banner if on Christmas
+        if (!document.querySelector('.christmas-runner-overlay')) {
+          const hero = document.querySelector('.hero');
+          if (hero) {
+            const overlay = document.createElement('div');
+            overlay.className = 'christmas-runner-overlay';
+            overlay.innerHTML = `
+              <img class="runner leader" src="christmasbob.png" alt="Bob">
+              <img class="runner follower" src="santasanger.png" alt="Runner 2">
+            `;
+            hero.appendChild(overlay);
+          }
+        }
+      }
+    })();
+
     function tacoCreate() {
       const taco = document.createElement("div");
       const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
@@ -283,48 +334,8 @@
       const day = today.getDate();
       const isithalloween = `${day}${mmonth}`;
 
-      if (isithalloween === "3110") {
-        emoji = "🎃";
-        const messagebyahuman = document.querySelector('.special_message');
-        messagebyahuman.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE'
-        messagebyahuman.style = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
-        const scarylaugh = new Audio('laugh.mp3');
-        window.addEventListener('click', () => {
-          scarylaugh.play()
-            .then(() => console.log("Audio playing successfully!"))
-            .catch(e => console.error("Playback blocked:", e));
-        
-        }, { once: true });
-        
-      }
-
-      // Christmas Only Event (December 25)
-      if (isithalloween === "2512") {
-        emoji = "🎁";
-        const messagebyahumanforchristmas = document.querySelector('.special_message');
-        messagebyahuman.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌  P.S. - FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE'
-        messagebyahuman.style = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
-        const bells = new Audio('bells.mp3');
-        window.addEventListener('click', () => {
-          bells.play()
-            .then(() => console.log("Audio playing successfully!"))
-            .catch(e => console.error("Playback blocked:", e));
-        }, { once: true });
-
-        // Add runner overlay across top hero banner if not present
-        if (!document.querySelector('.christmas-runner-overlay')) {
-          const hero = document.querySelector('.hero');
-          if (hero) {
-            const overlay = document.createElement('div');
-            overlay.className = 'christmas-runner-overlay';
-            overlay.innerHTML = `
-              <img class="runner leader" src="christmasbob.png" alt="Bob">
-              <img class="runner follower" src="santasanger.png" alt="Runner 2">
-            `;
-            hero.appendChild(overlay);
-          }
-        }
-      }
+      if (isithalloween === "3110") emoji = "🎃";
+      if (isithalloween === "2512") emoji = "🎁";
 
       taco.classList.add("taco");
       taco.innerText = emoji;
