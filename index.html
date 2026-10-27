@@ -51,7 +51,7 @@
 
     .runner {
       position: absolute;
-      top: 40px; /* Runs near the top of the hero banner */
+      top: 100px; /* Runs near the top of the hero banner */
       width: 120px;
       height: auto;
     }
@@ -103,6 +103,7 @@
         <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens, leaving the city's finest scratching their heads and wondering if they're chasing a criminal or attending a comedy show.</p>
         <p class="quote">"I just hate being in line" - Bob, on why he turned to crime</p>
         <p class="tagline">So, lock your cookies🍪, not your doors.</p>
+        <p class="special_messsage" id="specialmessage"></p>
       </div>
     </div>
   </header>
@@ -110,7 +111,7 @@
   <h1 id="funLabel" style="text-align: center;"></h1>
 
   <main>
-    <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" alt="Bob's Aura">
+    <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" id="bobimage" alt="Bob's Aura">
     <h1>Lookie at this cool picture of Bob!</h1>
     <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
 
@@ -284,17 +285,25 @@
 
       if (isithalloween === "3110") {
         emoji = "🎃";
+        const messagebyahuman = document.querySelector('.special_message');
+        messagebyahuman.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE'
+        messagebyahuman.style = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
         const scarylaugh = new Audio('laugh.mp3');
         window.addEventListener('click', () => {
           scarylaugh.play()
             .then(() => console.log("Audio playing successfully!"))
             .catch(e => console.error("Playback blocked:", e));
+        
         }, { once: true });
+        
       }
 
       // Christmas Only Event (December 25)
       if (isithalloween === "2512") {
         emoji = "🎁";
+        const messagebyahumanforchristmas = document.querySelector('.special_message');
+        messagebyahuman.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌  P.S. - FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE'
+        messagebyahuman.style = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
         const bells = new Audio('bells.mp3');
         window.addEventListener('click', () => {
           bells.play()
