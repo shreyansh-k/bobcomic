@@ -32,21 +32,27 @@
       text-align: left; 
     }
 
-    /* Runner Animation Styles */
-    .runner-container {
+    /* Hero Banner positioning parent */
+    .hero {
       position: relative;
-      width: 100%;
-      height: 200px;
-      background: #f0f0f0;
       overflow: hidden;
-      border-radius: 8px;
-      margin: 20px 0;
+    }
+
+    /* Christmas Runner Overlay for Hero Banner */
+    .christmas-runner-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
     }
 
     .runner {
       position: absolute;
-      bottom: 20px;
-      width: 60px;
+      top: 15px; /* Runs near the top of the hero banner */
+      width: 120px;
       height: auto;
     }
 
@@ -107,12 +113,6 @@
     <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" alt="Bob's Aura">
     <h1>Lookie at this cool picture of Bob!</h1>
     <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
-
-    <!-- Animated Runners Section -->
-    <div class="runner-container">
-      <img class="runner leader" src="christmasbob.png" alt="Bob">
-      <img class="runner follower" src="santasanger.png" alt="Runner 2">
-    </div>
 
     <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
       <h2>Poll: What's your favorite Bob moment?</h2>
@@ -292,6 +292,7 @@
         }, { once: true });
       }
 
+      // Christmas Only Event (December 25)
       if (isithalloween === "2512") {
         emoji = "🎁";
         const bells = new Audio('bells.mp3');
@@ -300,6 +301,20 @@
             .then(() => console.log("Audio playing successfully!"))
             .catch(e => console.error("Playback blocked:", e));
         }, { once: true });
+
+        // Add runner overlay across top hero banner if not present
+        if (!document.querySelector('.christmas-runner-overlay')) {
+          const hero = document.querySelector('.hero');
+          if (hero) {
+            const overlay = document.createElement('div');
+            overlay.className = 'christmas-runner-overlay';
+            overlay.innerHTML = `
+              <img class="runner leader" src="christmasbob.png" alt="Bob">
+              <img class="runner follower" src="santasanger.png" alt="Runner 2">
+            `;
+            hero.appendChild(overlay);
+          }
+        }
       }
 
       taco.classList.add("taco");
