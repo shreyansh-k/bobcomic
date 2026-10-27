@@ -31,6 +31,47 @@
       padding: 12px; 
       text-align: left; 
     }
+
+    /* Runner Animation Styles */
+    .runner-container {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: #f0f0f0;
+      overflow: hidden;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .runner {
+      position: absolute;
+      bottom: 20px;
+      width: 60px;
+      height: auto;
+    }
+
+    @keyframes jog {
+      0%, 100% { transform: translateX(0px) rotate(-3deg); }
+      50% { transform: translateX(4px) rotate(3deg); }
+    }
+
+    @keyframes crossScreen1 {
+      0% { left: -70px; }
+      100% { left: 100%; }
+    }
+
+    @keyframes crossScreen2 {
+      0% { left: -150px; }
+      100% { left: calc(100% - 80px); }
+    }
+
+    .leader {
+      animation: crossScreen1 6s linear infinite, jog 0.25s ease-in-out infinite;
+    }
+
+    .follower {
+      animation: crossScreen2 6s linear infinite, jog 0.25s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +107,12 @@
     <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" alt="Bob's Aura">
     <h1>Lookie at this cool picture of Bob!</h1>
     <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
+
+    <!-- Animated Runners Section -->
+    <div class="runner-container">
+      <img class="runner leader" src="christmasbob.png" alt="Bob">
+      <img class="runner follower" src="santasanger.png" alt="Runner 2">
+    </div>
 
     <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
       <h2>Poll: What's your favorite Bob moment?</h2>
@@ -253,55 +300,6 @@
             .then(() => console.log("Audio playing successfully!"))
             .catch(e => console.error("Playback blocked:", e));
         }, { once: true });
-        
-          <div style="position: relative; width: 100%; height: 200px; background: #f0f0f0; overflow: hidden; border-radius: 8px;">
-            
-            <!-- CSS Animations -->
-            <style>
-              /* Base style for both runners */
-              .runner {
-                position: absolute;
-                bottom: 20px;
-                width: 60px; /* Adjust size as needed */
-                height: auto;
-              }
-          
-              /* Running/Wobbling effect (slight left/right and tilt) */
-              @keyframes jog {
-                0%, 100% { transform: translateX(0px) rotate(-3deg); }
-                50% { transform: translateX(4px) rotate(3deg); }
-              }
-          
-              /* Screen traversal for Runner 1 (Leader) */
-              @keyframes crossScreen1 {
-                0% { left: -70px; }
-                100% { left: 100%; }
-              }
-          
-              /* Screen traversal for Runner 2 (Follower - starts further back) */
-              @keyframes crossScreen2 {
-                0% { left: -150px; } /* Creates the gap/distance between them */
-                100% { left: calc(100% - 80px); }
-              }
-          
-              /* Apply animations to the elements */
-              .leader {
-                animation: crossScreen1 6s linear infinite, jog 0.25s ease-in-out infinite;
-              }
-              
-              .follower {
-                animation: crossScreen2 6s linear infinite, jog 0.25s ease-in-out infinite;
-              }
-            </style>
-          
-            <!-- Runner 1: In the lead -->
-            <img class="runner leader" src="christmasbob.png" alt="Bob">
-          
-            <!-- Runner 2: Following behind -->
-            <img class="runner follower" src="santasanger.png" alt="Runner 2">
-          
-          </div>
-        
       }
 
       taco.classList.add("taco");
@@ -323,7 +321,7 @@
 
     window.addEventListener("scroll", startTacos);
 
-    // 3D Scrolling Effects with Performance Optimization
+    // 3D Scrolling Effects
     (function() {
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReducedMotion) return;
