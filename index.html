@@ -287,7 +287,7 @@
           scarylaugh.play()
             .then(() => console.log("Audio playing successfully!"))
             .catch(e => console.error("Playback blocked:", e));
-        }, { once: true });
+        });
       }
 
       // Christmas Event (December 25)
@@ -301,7 +301,7 @@
           bells.play()
             .then(() => console.log("Audio playing successfully!"))
             .catch(e => console.error("Playback blocked:", e));
-        }, { once: true });
+        });
 
         // Add runner overlay across top hero banner if on Christmas
         if (!document.querySelector('.christmas-runner-overlay')) {
