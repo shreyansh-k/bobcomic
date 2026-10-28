@@ -276,7 +276,7 @@
       const isithalloween = `${day}${mmonth}`;
       const messageElem = document.getElementById('specialmessage');
 
-      // Halloween Event (October 31)
+      // Halloween Event (October 31 -> "3110")
       if (isithalloween === "3110") {
         if (messageElem) {
           messageElem.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
@@ -289,12 +289,12 @@
         });
       }
 
-      // Christmas Event (December 25)
+      // Christmas Event (December 25 -> "2512")
       if (isithalloween === "2512") {
         if (messageElem) {
           messageElem.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌 P.S. - FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
           messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
-          
+
           // Inject growth animation CSS safely
           const style = document.createElement('style');
           style.textContent = `
@@ -342,7 +342,7 @@
       const today = new Date();
       const month = today.getMonth();
       let emoji = dayEmojis[today.getDay()];
-      
+
       if (month === 11) {
         emoji = "❄️";
       }
