@@ -13,6 +13,8 @@
       position: fixed;
       font-size: 2rem;
       animation: fall 3s linear forwards;
+      pointer-events: none;
+      z-index: 99;
     }
 
     @keyframes fall {
@@ -21,15 +23,28 @@
         opacity: 1;
       }
       to {
-        top: var(--fall-bottom);
+        top: var(--fall-bottom, 100vh);
         opacity: 1;
       }
     }
 
-    th, td { 
-      border: 1px solid #ccc; 
-      padding: 12px; 
-      text-align: left; 
+    /* Table Styling Cleanup */
+    .stats-table {
+      border: 5px dashed #000000;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 20px auto;
+    }
+
+    .stats-table th, 
+    .stats-table td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+      background-color: #ffffff;
+      color: #212529;
+      font-weight: bold;
     }
 
     /* Hero Banner positioning parent */
@@ -51,7 +66,7 @@
 
     .runner {
       position: absolute;
-      top: 100px; /* Runs near the top of the hero banner */
+      top: 100px;
       width: 120px;
       height: auto;
     }
@@ -77,6 +92,12 @@
 
     .follower {
       animation: crossScreen2 6s linear infinite, jog 0.25s ease-in-out infinite;
+    }
+
+    /* Feature Grid Perspective for 3D Cards */
+    .feature-grid {
+      perspective: 1000px;
+      transform-style: preserve-3d;
     }
   </style>
 </head>
@@ -108,12 +129,12 @@
     </div>
   </header>
 
-  <h1 id="funLabel" style="text-align: center;"></h1>
-
   <main>
+    <h2 id="funLabel" style="text-align: center;"></h2>
+
     <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" id="bobimage" alt="Bob's Aura">
-    <h1>Lookie at this cool picture of Bob!</h1>
-    <h2>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h2>
+    <h2>Lookie at this cool picture of Bob!</h2>
+    <h3>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h3>
 
     <section class="poll-section" style="text-align: center; padding: 40px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 20px; margin: 40px auto; max-width: 600px;">
       <h2>Poll: What's your favorite Bob moment?</h2>
@@ -132,7 +153,7 @@
       <h2>⚽︎Messi Vs Ronaldo!!!⚽︎</h2>
       <p>Finally answer the question of WHO IS THE G.O.A.T🐐⚽︎.</p>
       
-      <table style="border: 5px dashed #000000; border-collapse: collapse; width: 100%; margin: 20px auto;">
+      <table class="stats-table">
         <thead>
           <tr>
             <th>Category(As of july 7 2026)</th>
@@ -142,69 +163,69 @@
         </thead>
         <tbody>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Career Goals</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">917</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">974</td>
+            <td>Career Goals</td>
+            <td>917</td>
+            <td>974</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Goals Per match</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0.79</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0.74</td>
+            <td>Goals Per match</td>
+            <td>0.79</td>
+            <td>0.74</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Minutes per goal</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">104</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">111</td>
+            <td>Minutes per goal</td>
+            <td>104</td>
+            <td>111</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Assists</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">453</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">307</td>
+            <td>Assists</td>
+            <td>453</td>
+            <td>307</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Ballon d'Or</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">8</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">5</td>
+            <td>Ballon d'Or</td>
+            <td>8</td>
+            <td>5</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">World Cup titles</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">1(2022)</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">0</td>
+            <td>World Cup titles</td>
+            <td>1(2022)</td>
+            <td>0</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Champions League</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">4</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">5</td>
+            <td>Champions League</td>
+            <td>4</td>
+            <td>5</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">League Titles</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">10 La Liga, 2 Ligue 1, 1 MLS</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">3 Premier League, 2 La Liga, 2 Serie A</td>
+            <td>League Titles</td>
+            <td>10 La Liga, 2 Ligue 1, 1 MLS</td>
+            <td>3 Premier League, 2 La Liga, 2 Serie A</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Club Career Goals</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">794</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">828</td>
+            <td>Club Career Goals</td>
+            <td>794</td>
+            <td>828</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Hat-tricks</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">60</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">66</td>
+            <td>Hat-tricks</td>
+            <td>60</td>
+            <td>66</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Major Trophies</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">40+</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">30+</td>
+            <td>Major Trophies</td>
+            <td>40+</td>
+            <td>30+</td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">Sources:</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">sports ndtv: https://sports.ndtv.com/fifa-world-cup-2026/cristiano-ronaldo-vs-lionel-messi-debate-officially-over-theres-a-clear-winner-11738030?</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">https://sports.yahoo.com/articles/lionel-messi-vs-cristiano-ronaldo-132716598.html</td>
+            <td>Sources:</td>
+            <td>sports ndtv: <a href="https://sports.ndtv.com/fifa-world-cup-2026/cristiano-ronaldo-vs-lionel-messi-debate-officially-over-theres-a-clear-winner-11738030?" target="_blank" rel="noopener">NDTV Sports</a></td>
+            <td><a href="https://sports.yahoo.com/articles/lionel-messi-vs-cristiano-ronaldo-132716598.html" target="_blank" rel="noopener">Yahoo Sports</a></td>
           </tr>
           <tr>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">So, WHO IS THE GOAT? There can be only 1 goat.</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">MESSI IS THE GOAT: MESSI HAS MORE ASSISTS, BALLON D'ORS, MORE WORLD CUP TITLES, MORE INTERNATIONAL TROPHIES, AND MORE CLUB TROPHIES.</td>
-            <td style="padding: 12px;text-align: left;vertical-align: top;background-color: #ffffff;color: #212529;font-weight: bold;">RONALDO ONLY HAS MORE CAREER GOALS, MORE CHAMPIONS LEAGUE TITLES, AND MORE INTERNATIONAL GOALS.</td>
+            <td>So, WHO IS THE GOAT? There can be only 1 goat.</td>
+            <td>MESSI IS THE GOAT: MESSI HAS MORE ASSISTS, BALLON D'ORS, MORE WORLD CUP TITLES, MORE INTERNATIONAL TROPHIES, AND MORE CLUB TROPHIES.</td>
+            <td>RONALDO ONLY HAS MORE CAREER GOALS, MORE CHAMPIONS LEAGUE TITLES, AND MORE INTERNATIONAL GOALS.</td>
           </tr>
         </tbody>
       </table>
@@ -233,7 +254,7 @@
         </div>
       </div>
 
-      <div class="feature-card">
+      <div class="feature-card" style="margin-top: 20px;">
         <i class="fas fa-face-grin-wide"></i>
         <h3>Get traumatized!</h3>
         <p>Click only if you have the guts to!</p>
@@ -268,30 +289,32 @@
     updateFallBottom();
     window.addEventListener("resize", updateFallBottom);
 
-    // Initialize Holiday Events on Page Load
-    (function initHolidayEvents() {
+    // Initialize Holiday Events
+    function initHolidayEvents() {
       const today = new Date();
       const month = today.getMonth() + 1; // 1 to 12
       const day = today.getDate();         // 1 to 31
       const messageElem = document.getElementById('specialmessage');
 
-      // Halloween Event (October 31st)
-      if (month === 10 && day === 31) {
-        if (messageElem) {
-          messageElem.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
+      const isHalloween = (month === 10 && day === 31);
+      const isChristmas = (month === 12 && day === 25);
+
+// Halloween Event
+      if (isHalloween) {
+        if (messageElem && !messageElem.dataset.active) {
+          messageElem.dataset.active = "true";
+          messageElem.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- CLICK ANYWHERE FOR A SPECIAL SURPRISE!';
           messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
         }
 
-        const scarylaugh = new Audio('laugh.mp3');
+        if (!window.halloweenBound) {
+          window.halloweenBound = true;
+          const scarylaugh = new Audio('laugh.mp3');
 
-        window.addEventListener('click', () => {
-          // Play audio
-          scarylaugh.currentTime = 0;
-          scarylaugh.play().catch(e => console.error("Playback blocked:", e));
-
-          // Inject growth animation CSS and GIF together on click
-          if (!document.getElementById('halloween-growing-gif')) {
+          // Ensure CSS keyframes exist
+          if (!document.getElementById('halloween-grow-style')) {
             const style = document.createElement('style');
+            style.id = 'halloween-grow-style';
             style.textContent = `
               @keyframes grow { 
                 0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 
@@ -301,67 +324,87 @@
               }
             `;
             document.head.appendChild(style);
+          }
 
+          window.addEventListener('click', () => {
+            // Play or restart scary laugh audio
+            scarylaugh.currentTime = 0;
+            scarylaugh.play().catch(e => console.error("Playback blocked:", e));
+
+            // Remove any existing pumpkin GIF so the animation can restart cleanly
+            const existingGif = document.getElementById('halloween-growing-gif');
+            if (existingGif) {
+              existingGif.remove();
+            }
+
+            // Spawn a fresh pumpkin GIF
             const img = document.createElement('img');
             img.id = 'halloween-growing-gif';
             img.src = "https://cdn.pixabay.com/animation/2024/10/26/02/34/02-34-35-674_512.gif";
-            img.style.cssText = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: grow 10s forwards; pointer-events: none;";
+            img.style.cssText = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: grow 10s forwards; pointer-events: none; z-index: 9999;";
+            
+            // Automatically clean up the DOM element when the animation finishes
+            img.addEventListener('animationend', () => {
+              img.remove();
+            });
+
             document.body.appendChild(img);
-          }
-        });
+          });
+        }
       }
 
-      // Christmas Event (December 25th)
-      if (month === 12 && day === 25) {
-        if (messageElem) {
-          messageElem.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌 P.S. - FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
+      // Christmas Event
+      if (isChristmas) {
+        if (messageElem && !messageElem.dataset.active) {
+          messageElem.dataset.active = "true";
+          messageElem.textContent = '🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌HAPPY CHRISTMAS FROM BOB, FRED, AND THE COPS!!!!🎅🌲🤶❄️🎄🎁☃️🍪🔔🛷🦌 P.S. - CLICK ANYWHERE TO PLAY SOUND!';
           messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
         }
 
-        const bells = new Audio('bells.mp3');
-        window.addEventListener('click', () => {
-          bells.currentTime = 0;
-          bells.play().catch(e => console.error("Playback blocked:", e));
-        });
+        if (!window.christmasBound) {
+          window.christmasBound = true;
+          const bells = new Audio('bells.mp3');
 
-        // Add runner overlay across top hero banner on Christmas
-        if (!document.querySelector('.christmas-runner-overlay')) {
-          const hero = document.querySelector('.hero');
-          if (hero) {
-            const overlay = document.createElement('div');
-            overlay.className = 'christmas-runner-overlay';
-            overlay.innerHTML = `
-              <img class="runner leader" src="christmasbob.png" alt="Bob">
-              <img class="runner follower" src="santasanger.png" alt="Runner 2">
-            `;
-            hero.appendChild(overlay);
+          window.addEventListener('click', () => {
+            bells.currentTime = 0;
+            bells.play().catch(e => console.error("Playback blocked:", e));
+          });
+
+          if (!document.querySelector('.christmas-runner-overlay')) {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+              const overlay = document.createElement('div');
+              overlay.className = 'christmas-runner-overlay';
+              overlay.innerHTML = `
+                <img class="runner leader" src="christmasbob.png" alt="Bob">
+                <img class="runner follower" src="santasanger.png" alt="Runner 2">
+              `;
+              hero.appendChild(overlay);
+            }
           }
         }
       }
-    })();
+    }
+
+    document.addEventListener("DOMContentLoaded", initHolidayEvents);
+    window.addEventListener("click", initHolidayEvents, { once: true });
 
     function tacoCreate() {
+      // Memory Leak Prevention: Limit maximum active floating emojis in DOM
+      if (document.querySelectorAll('.taco').length >= 15) return;
+
       const taco = document.createElement("div");
       const dayEmojis = ["🍨","🎬","🌮","🌀","🧋","🍟","⚽"];
       const today = new Date();
       
-      const month = today.getMonth() + 1; // 1 to 12
-      const day = today.getDate();         // 1 to 31
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
 
-      // Default day of the week emoji
       let emoji = dayEmojis[today.getDay()];
 
-      // December general winter emoji
-      if (month === 12) {
-        emoji = "❄️";
-      }
-
-      // Exact Holiday Overrides:
-      if (month === 10 && day === 31) {
-        emoji = "🎃"; // Halloween (Oct 31)
-      } else if (month === 12 && day === 25) {
-        emoji = "🎁"; // Christmas (Dec 25)
-      }
+      if (month === 12) emoji = "❄️";
+      if (month === 10 && day === 31) emoji = "🎃";
+      if (month === 12 && day === 25) emoji = "🎁";
 
       taco.classList.add("taco");
       taco.innerText = emoji;
