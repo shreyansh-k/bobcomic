@@ -280,30 +280,34 @@
         if (messageElem) {
           messageElem.textContent = '🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛HAPPY HALLOWEEN FROM BOB, FRED, AND THE COPS!!!! 🎃🍬🧟🧛👻🧟‍♀️🐈‍⬛ P.S.- FOR A SPECIAL SURPRISE, CLICK THE WEBPAGE';
           messageElem.style.cssText = "background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent; display: inline-block;";
-          
-          // Inject growth animation CSS safely for Halloween
-          const style = document.createElement('style');
-          style.textContent = `
-            @keyframes grow { 
-              0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 
-              1% { opacity: 1; } 
-              99% { transform: translate(-50%, -50%) scale(5); opacity: 1; } 
-              100% { opacity: 0; } 
-            }
-          `;
-          document.head.appendChild(style);
-
-          // Inject growing animated GIF on Halloween
-          const img = document.createElement('img');
-          img.src = "https://cdn.pixabay.com/animation/2024/10/26/02/34/02-34-35-674_512.gif";
-          img.style.cssText = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: grow 10s forwards; pointer-events: none;";
-          document.body.appendChild(img);
         }
 
         const scarylaugh = new Audio('laugh.mp3');
+
         window.addEventListener('click', () => {
+          // Play audio
           scarylaugh.currentTime = 0;
           scarylaugh.play().catch(e => console.error("Playback blocked:", e));
+
+          // Inject growth animation CSS and GIF together on click
+          if (!document.getElementById('halloween-growing-gif')) {
+            const style = document.createElement('style');
+            style.textContent = `
+              @keyframes grow { 
+                0% { transform: translate(-50%, -50%) scale(0); opacity: 0; } 
+                1% { opacity: 1; } 
+                99% { transform: translate(-50%, -50%) scale(5); opacity: 1; } 
+                100% { opacity: 0; } 
+              }
+            `;
+            document.head.appendChild(style);
+
+            const img = document.createElement('img');
+            img.id = 'halloween-growing-gif';
+            img.src = "https://cdn.pixabay.com/animation/2024/10/26/02/34/02-34-35-674_512.gif";
+            img.style.cssText = "position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: grow 10s forwards; pointer-events: none;";
+            document.body.appendChild(img);
+          }
         });
       }
 
