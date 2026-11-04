@@ -100,15 +100,23 @@
       transform-style: preserve-3d;
     }
 
-    /* Diwali Canvas Fireworks Layer */
-    #diwali-canvas {
+    /* Rocket and Burst Animations */
+    .diwali-rocket {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 40px; /* Adjust based on rocket.png size */
+      height: auto;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 9999;
+      transform: translateX(-50%);
+    }
+
+    .diwali-burst {
+      position: fixed;
+      width: 150px; /* Adjust based on burst.gif size */
+      height: auto;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
     }
   </style>
 </head>
@@ -304,11 +312,10 @@
     function initHolidayEvents() {
       const today = new Date();
       const year = today.getFullYear();
-      const month = today.getMonth() + 1; // 1 to 12
-      const day = today.getDate();         // 1 to 31
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
       const messageElem = document.getElementById('specialmessage');
 
-      // Set to true while testing with fake date override tools
       const FORCE_DIWALI_TEST = true; 
 
       const isHalloween = (month === 10 && day === 31);
@@ -400,7 +407,7 @@
         }
       }
 
-      // Diwali Rocket Launcher Event
+      // Diwali Image Rocket Launcher Event
       if (isDiwali) {
         if (messageElem && !messageElem.dataset.active) {
           messageElem.dataset.active = "true";
@@ -411,144 +418,53 @@
         if (!window.diwaliBound) {
           window.diwaliBound = true;
 
-          // Create Fireworks Canvas Overlay
-          let canvas = document.getElementById('diwali-canvas');
-          if (!canvas) {
-            canvas = document.createElement('canvas');
-            canvas.id = 'diwali-canvas';
-            document.body.appendChild(canvas);
-          }
+          function launchImageRocket(targetX, targetY) {
+            const rocket = document.createElement('img');
+            rocket.src = 'rocket.png';
+            rocket.className = 'diwali-rocket';
+            
+            const startX = targetX !== undefined ? targetX : Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.1);
+            const startY = window.innerHeight;
+            const endY = targetY !== undefined ? targetY : Math.random() * (window.innerHeight * 0.4) + 80;
 
-          const ctx = canvas.getContext('2d');
-          let particles = [];
-          let rockets = [];
+            rocket.style.left = `${startX}px`;
+            rocket.style.top = `${startY}px`;
+            document.body.appendChild(rocket);
 
-          function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-          }
-          resizeCanvas();
-          window.addEventListener('resize', resizeCanvas);
+            let currentY = startY;
+            const speed = 12;
 
-          const colorPalette = ['#FFD700', '#FF5722', '#E91E63', '#00E676', '#00B0FF', '#D500F9', '#FFEB3B'];
+            const flightInterval = setInterval(() => {
+              currentY -= speed;
+              rocket.style.top = `${currentY}px`;
 
-          // Rocket Launcher Class
-          class Rocket {
-            constructor(targetX, targetY) {
-              this.x = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
-              this.y = canvas.height;
-              this.targetX = targetX !== undefined ? targetX : this.x + (Math.random() * 120 - 60);
-              this.targetY = targetY !== undefined ? targetY : Math.random() * (canvas.height * 0.4) + 60;
-              
-              // Upward velocity vector calculation
-              this.vx = (this.targetX - this.x) / 30;
-              this.vy = - (Math.random() * 4 + 11); // Force upward negative speed
-              
-              this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-              this.dead = false;
-            }
+              if (currentY <= endY) {
+                clearInterval(flightInterval);
+                rocket.remove();
 
-            draw() {
-              ctx.save();
-              ctx.beginPath();
-              ctx.arc(this.x, this.y, 4, 0, Math.PI * 2);
-              ctx.fillStyle = '#FFFFFF';
-              ctx.shadowBlur = 15;
-              ctx.shadowColor = this.color;
-              ctx.fill();
-              ctx.restore();
-            }
+                const burst = document.createElement('img');
+                burst.src = `burst.gif?t=${Date.now()}`;
+                burst.className = 'diwali-burst';
+                burst.style.left = `${startX}px`;
+                burst.style.top = `${endY}px`;
+                document.body.appendChild(burst);
 
-            update() {
-              this.x += this.vx;
-              this.y += this.vy;
-
-              // Tail spark effects behind the ascending rocket
-              if (Math.random() < 0.8) {
-                particles.push(new Particle(this.x, this.y, '#FFA500', 0.5, 0.04));
+                setTimeout(() => {
+                  burst.remove();
+                }, 1500);
               }
-
-              // Explode when rocket reaches peak target height
-              if (this.y <= this.targetY) {
-                this.dead = true;
-                explodeFirework(this.x, this.y, this.color);
-              }
-            }
+            }, 16);
           }
 
-          // Explosion Particle Class
-          class Particle {
-            constructor(x, y, color, speedScale = 1, decayRate = 0.02) {
-              this.x = x;
-              this.y = y;
-              this.color = color;
-              const angle = Math.random() * Math.PI * 2;
-              const speed = (Math.random() * 7 + 2) * speedScale;
-              this.vx = Math.cos(angle) * speed;
-              this.vy = Math.sin(angle) * speed;
-              this.alpha = 1;
-              this.friction = 0.95;
-              this.gravity = 0.12;
-              this.decay = decayRate;
-            }
-
-            draw() {
-              ctx.save();
-              ctx.globalAlpha = this.alpha;
-              ctx.beginPath();
-              ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-              ctx.fillStyle = this.color;
-              ctx.fill();
-              ctx.restore();
-            }
-
-            update() {
-              this.vx *= this.friction;
-              this.vy *= this.friction;
-              this.vy += this.gravity;
-              this.x += this.vx;
-              this.y += this.vy;
-              this.alpha -= this.decay;
-            }
+          function startAutoRockets() {
+            launchImageRocket();
+            const nextInterval = Math.random() * 2500 + 1000;
+            setTimeout(startAutoRockets, nextInterval);
           }
+          startAutoRockets();
 
-          function explodeFirework(x, y, color) {
-            for (let i = 0; i < 60; i++) {
-              particles.push(new Particle(x, y, color));
-            }
-          }
-
-          function launchRandomRocket() {
-            rockets.push(new Rocket());
-            // Random interval shoot between 1s and 3s
-            const nextLaunch = Math.random() * 2000 + 1000;
-            setTimeout(launchRandomRocket, nextLaunch);
-          }
-          launchRandomRocket();
-
-          // Main Animation Loop
-          function renderLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            rockets = rockets.filter(r => !r.dead);
-            rockets.forEach(r => {
-              r.update();
-              r.draw();
-            });
-
-            particles = particles.filter(p => p.alpha > 0);
-            particles.forEach(p => {
-              p.update();
-              p.draw();
-            });
-
-            requestAnimationFrame(renderLoop);
-          }
-          renderLoop();
-
-          // Mouse click launch trigger
           window.addEventListener('click', (e) => {
-            rockets.push(new Rocket(e.clientX, e.clientY));
+            launchImageRocket(e.clientX, e.clientY);
           });
         }
       }
