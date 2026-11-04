@@ -388,6 +388,7 @@
       }
 
       // Diwali Firecrackers Event
+      // Diwali Firecrackers & Rocket Launchers Event
       if (isDiwali) {
         if (messageElem && !messageElem.dataset.active) {
           messageElem.dataset.active = "true";
@@ -398,7 +399,7 @@
         if (!window.diwaliBound) {
           window.diwaliBound = true;
 
-          // Create Fireworks Overlay Canvas
+          // Ensure Fireworks Canvas Overlay exists
           let canvas = document.getElementById('diwali-canvas');
           if (!canvas) {
             canvas = document.createElement('canvas');
@@ -408,6 +409,7 @@
 
           const ctx = canvas.getContext('2d');
           let particles = [];
+          let rockets = [];
 
           function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -416,25 +418,76 @@
           resizeCanvas();
           window.addEventListener('resize', resizeCanvas);
 
+          const colorPalette = ['#FFD700', '#FF5722', '#E91E63', '#00E676', '#00B0FF', '#D500F9', '#FFEB3B'];
+
+          // Flying Rocket Class
+          class Rocket {
+            constructor(targetX, targetY) {
+              this.x = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
+              this.y = canvas.height;
+              this.targetX = targetX !== undefined ? targetX : this.x + (Math.random() * 100 - 50);
+              this.targetY = targetY !== undefined ? targetY : Math.random() * (canvas.height * 0.5) + 50;
+              
+              const dx = this.targetX - this.x;
+              const dy = this.targetY - this.y;
+              const distance = Math.hypot(dx, dy);
+              const speed = Math.random() * 4 + 10;
+              
+              this.vx = (dx / distance) * speed;
+              this.vy = (dy / distance) * speed;
+              this.color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+              this.dead = false;
+            }
+
+            draw() {
+              ctx.save();
+              ctx.beginPath();
+              ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+              ctx.fillStyle = '#FFFFFF';
+              ctx.shadowBlur = 10;
+              ctx.shadowColor = this.color;
+              ctx.fill();
+              ctx.restore();
+            }
+
+            update() {
+              this.x += this.vx;
+              this.y += this.vy;
+
+              // Spawn trail sparks behind ascending rocket
+              if (Math.random() < 0.6) {
+                particles.push(new Particle(this.x, this.y, '#FFA500', 0.5, 1));
+              }
+
+              // Detonate rocket when reaching target height
+              if (this.vy < 0 && this.y <= this.targetY) {
+                this.dead = true;
+                explodeFirework(this.x, this.y, this.color);
+              }
+            }
+          }
+
+          // Explosion Particle Class
           class Particle {
-            constructor(x, y, color) {
+            constructor(x, y, color, speedScale = 1, decayRate = 0.02) {
               this.x = x;
               this.y = y;
               this.color = color;
               const angle = Math.random() * Math.PI * 2;
-              const speed = Math.random() * 6 + 2;
+              const speed = (Math.random() * 6 + 2) * speedScale;
               this.vx = Math.cos(angle) * speed;
               this.vy = Math.sin(angle) * speed;
               this.alpha = 1;
-              this.friction = 0.96;
-              this.gravity = 0.15;
+              this.friction = 0.95;
+              this.gravity = 0.12;
+              this.decay = decayRate;
             }
 
             draw() {
               ctx.save();
               ctx.globalAlpha = this.alpha;
               ctx.beginPath();
-              ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+              ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
               ctx.fillStyle = this.color;
               ctx.fill();
               ctx.restore();
@@ -446,44 +499,53 @@
               this.vy += this.gravity;
               this.x += this.vx;
               this.y += this.vy;
-              this.alpha -= 0.02;
+              this.alpha -= this.decay;
             }
           }
 
-          function spawnFirework(x, y) {
-            const colors = ['#FFD700', '#FF5722', '#E91E63', '#00E676', '#00B0FF', '#D500F9'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            for (let i = 0; i < 40; i++) {
+          function explodeFirework(x, y, color) {
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
               particles.push(new Particle(x, y, color));
             }
           }
 
-          function animateFireworks() {
+          function launchRandomRocket() {
+            rockets.push(new Rocket());
+            // Schedule next rocket shoot at random interval (between 1s and 4.5s)
+            const nextLaunch = Math.random() * 3500 + 1000;
+            setTimeout(launchRandomRocket, nextLaunch);
+          }
+          launchRandomRocket();
+
+          // Main Animation Cycle
+          function renderLoop() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Update Rockets
+            rockets = rockets.filter(r => !r.dead);
+            rockets.forEach(r => {
+              r.update();
+              r.draw();
+            });
+
+            // Update Burst Particles
             particles = particles.filter(p => p.alpha > 0);
             particles.forEach(p => {
               p.update();
               p.draw();
             });
-            requestAnimationFrame(animateFireworks);
+
+            requestAnimationFrame(renderLoop);
           }
-          animateFireworks();
+          renderLoop();
 
-          // Auto rocket bursts
-          setInterval(() => {
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * (window.innerHeight * 0.5);
-            spawnFirework(x, y);
-          }, 1500);
-
-          // Click to detonate fireworks
+          // Click anywhere to launch a rocket directly to your click position
           window.addEventListener('click', (e) => {
-            spawnFirework(e.clientX, e.clientY);
+            rockets.push(new Rocket(e.clientX, e.clientY));
           });
         }
       }
-    }
-    
 
     document.addEventListener("DOMContentLoaded", initHolidayEvents);
     window.addEventListener("click", initHolidayEvents, { once: true });
