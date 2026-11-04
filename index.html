@@ -99,6 +99,17 @@
       perspective: 1000px;
       transform-style: preserve-3d;
     }
+
+    /* Diwali Canvas Fireworks Layer */
+    #diwali-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+    }
   </style>
 </head>
 <body>
@@ -298,8 +309,9 @@
 
       const isHalloween = (month === 10 && day === 31);
       const isChristmas = (month === 12 && day === 25);
+      const isDiwali = (month === 11 && day === 8);
 
-// Halloween Event
+      // Halloween Event
       if (isHalloween) {
         if (messageElem && !messageElem.dataset.active) {
           messageElem.dataset.active = "true";
@@ -311,7 +323,6 @@
           window.halloweenBound = true;
           const scarylaugh = new Audio('laugh.mp3');
 
-          // Ensure CSS keyframes exist
           if (!document.getElementById('halloween-grow-style')) {
             const style = document.createElement('style');
             style.id = 'halloween-grow-style';
@@ -327,27 +338,18 @@
           }
 
           window.addEventListener('click', () => {
-            // Play or restart scary laugh audio
             scarylaugh.currentTime = 0;
             scarylaugh.play().catch(e => console.error("Playback blocked:", e));
 
-            // Remove any existing pumpkin GIF so the animation can restart cleanly
             const existingGif = document.getElementById('halloween-growing-gif');
-            if (existingGif) {
-              existingGif.remove();
-            }
+            if (existingGif) existingGif.remove();
 
-            // Spawn a fresh pumpkin GIF
             const img = document.createElement('img');
             img.id = 'halloween-growing-gif';
             img.src = "https://cdn.pixabay.com/animation/2024/10/26/02/34/02-34-35-674_512.gif";
             img.style.cssText = "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: grow 10s forwards; pointer-events: none; z-index: 9999;";
             
-            // Automatically clean up the DOM element when the animation finishes
-            img.addEventListener('animationend', () => {
-              img.remove();
-            });
-
+            img.addEventListener('animationend', () => img.remove());
             document.body.appendChild(img);
           });
         }
@@ -384,13 +386,109 @@
           }
         }
       }
+
+      // Diwali Firecrackers Event
+      if (isDiwali) {
+        if (messageElem && !messageElem.dataset.active) {
+          messageElem.dataset.active = "true";
+          messageElem.textContent = '🪔✨🎆 HAPPY DIWALI FROM BOB, FRED, AND THE COPS!!!! 🪔✨🎆 P.S. - CLICK ANYWHERE TO LAUNCH FIREWORKS!';
+          messageElem.style.cssText = "background: linear-gradient(to right, #FF9933, #FFD700, #FF0055, #FFD700, #FF9933); -webkit-background-clip: text; color: transparent; display: inline-block; font-weight: bold;";
+        }
+
+        if (!window.diwaliBound) {
+          window.diwaliBound = true;
+
+          // Create Fireworks Overlay Canvas
+          let canvas = document.getElementById('diwali-canvas');
+          if (!canvas) {
+            canvas = document.createElement('canvas');
+            canvas.id = 'diwali-canvas';
+            document.body.appendChild(canvas);
+          }
+
+          const ctx = canvas.getContext('2d');
+          let particles = [];
+
+          function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          }
+          resizeCanvas();
+          window.addEventListener('resize', resizeCanvas);
+
+          class Particle {
+            constructor(x, y, color) {
+              this.x = x;
+              this.y = y;
+              this.color = color;
+              const angle = Math.random() * Math.PI * 2;
+              const speed = Math.random() * 6 + 2;
+              this.vx = Math.cos(angle) * speed;
+              this.vy = Math.sin(angle) * speed;
+              this.alpha = 1;
+              this.friction = 0.96;
+              this.gravity = 0.15;
+            }
+
+            draw() {
+              ctx.save();
+              ctx.globalAlpha = this.alpha;
+              ctx.beginPath();
+              ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+              ctx.fillStyle = this.color;
+              ctx.fill();
+              ctx.restore();
+            }
+
+            update() {
+              this.vx *= this.friction;
+              this.vy *= this.friction;
+              this.vy += this.gravity;
+              this.x += this.vx;
+              this.y += this.vy;
+              this.alpha -= 0.02;
+            }
+          }
+
+          function spawnFirework(x, y) {
+            const colors = ['#FFD700', '#FF5722', '#E91E63', '#00E676', '#00B0FF', '#D500F9'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 40; i++) {
+              particles.push(new Particle(x, y, color));
+            }
+          }
+
+          function animateFireworks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => p.alpha > 0);
+            particles.forEach(p => {
+              p.update();
+              p.draw();
+            });
+            requestAnimationFrame(animateFireworks);
+          }
+          animateFireworks();
+
+          // Auto rocket bursts
+          setInterval(() => {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * (window.innerHeight * 0.5);
+            spawnFirework(x, y);
+          }, 1500);
+
+          // Click to detonate fireworks
+          window.addEventListener('click', (e) => {
+            spawnFirework(e.clientX, e.clientY);
+          });
+        }
+      }
     }
+    
 
     document.addEventListener("DOMContentLoaded", initHolidayEvents);
     window.addEventListener("click", initHolidayEvents, { once: true });
 
     function tacoCreate() {
-      // Memory Leak Prevention: Limit maximum active floating emojis in DOM
       if (document.querySelectorAll('.taco').length >= 15) return;
 
       const taco = document.createElement("div");
@@ -405,6 +503,7 @@
       if (month === 12) emoji = "❄️";
       if (month === 10 && day === 31) emoji = "🎃";
       if (month === 12 && day === 25) emoji = "🎁";
+      if (month === 11 && day === 8) emoji = "🪔"; // Diwali Diya Emoji
 
       taco.classList.add("taco");
       taco.innerText = emoji;
