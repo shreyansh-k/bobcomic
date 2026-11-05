@@ -100,10 +100,20 @@
       transform-style: preserve-3d;
     }
 
-    /* Rocket and Burst Animations */
+    /* Diwali Canvas & Image Layers */
+    #diwali-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
     .diwali-rocket {
       position: fixed;
-      width: 40px; /* Adjust based on rocket.png size */
+      width: 40px;
       height: auto;
       pointer-events: none;
       z-index: 9999;
@@ -112,7 +122,7 @@
 
     .diwali-burst {
       position: fixed;
-      width: 150px; /* Adjust based on burst.gif size */
+      width: 150px;
       height: auto;
       transform: translate(-50%, -50%);
       pointer-events: none;
@@ -316,7 +326,8 @@
       const day = today.getDate();
       const messageElem = document.getElementById('specialmessage');
 
-      const FORCE_DIWALI_TEST = true; 
+      // Set to false for production date checking
+      const FORCE_DIWALI_TEST = false; 
 
       const isHalloween = (month === 10 && day === 31);
       const isChristmas = (month === 12 && day === 25);
@@ -407,7 +418,7 @@
         }
       }
 
-      // Diwali Image Rocket Launcher Event
+      // Diwali Event (Rocket + Burst.gif + Click Particles + boom.mp3)
       if (isDiwali) {
         if (messageElem && !messageElem.dataset.active) {
           messageElem.dataset.active = "true";
@@ -418,7 +429,84 @@
         if (!window.diwaliBound) {
           window.diwaliBound = true;
 
-          function launchImageRocket(targetX, targetY) {
+          // Setup Canvas Overlay for Click Particle Bursts
+          let canvas = document.getElementById('diwali-canvas');
+          if (!canvas) {
+            canvas = document.createElement('canvas');
+            canvas.id = 'diwali-canvas';
+            document.body.appendChild(canvas);
+          }
+
+          const ctx = canvas.getContext('2d');
+          let particles = [];
+
+          function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+          }
+          resizeCanvas();
+          window.addEventListener('resize', resizeCanvas);
+
+          class Particle {
+            constructor(x, y, color) {
+              this.x = x;
+              this.y = y;
+              this.color = color;
+              const angle = Math.random() * Math.PI * 2;
+              const speed = Math.random() * 6 + 2;
+              this.vx = Math.cos(angle) * speed;
+              this.vy = Math.sin(angle) * speed;
+              this.alpha = 1;
+              this.friction = 0.96;
+              this.gravity = 0.15;
+            }
+
+            draw() {
+              ctx.save();
+              ctx.globalAlpha = this.alpha;
+              ctx.beginPath();
+              ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+              ctx.fillStyle = this.color;
+              ctx.fill();
+              ctx.restore();
+            }
+
+            update() {
+              this.vx *= this.friction;
+              this.vy *= this.friction;
+              this.vy += this.gravity;
+              this.x += this.vx;
+              this.y += this.vy;
+              this.alpha -= 0.02;
+            }
+          }
+
+          function spawnParticleBurst(x, y) {
+            const colors = ['#FFD700', '#FF5722', '#E91E63', '#00E676', '#00B0FF', '#D500F9'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            for (let i = 0; i < 45; i++) {
+              particles.push(new Particle(x, y, color));
+            }
+          }
+
+          function renderCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles = particles.filter(p => p.alpha > 0);
+            particles.forEach(p => {
+              p.update();
+              p.draw();
+            });
+            requestAnimationFrame(renderCanvas);
+          }
+          renderCanvas();
+
+          function playBoomSound() {
+            const boom = new Audio('boom.mp3');
+            boom.currentTime = 0;
+            boom.play().catch(e => console.error("Audio playback blocked:", e));
+          }
+
+          function launchImageRocket(targetX, targetY, isClick = false) {
             const rocket = document.createElement('img');
             rocket.src = 'rocket.png';
             rocket.className = 'diwali-rocket';
@@ -442,12 +530,21 @@
                 clearInterval(flightInterval);
                 rocket.remove();
 
+                // 1. Play boom sound
+                playBoomSound();
+
+                // 2. Spawn burst.gif
                 const burst = document.createElement('img');
                 burst.src = `burst.gif?t=${Date.now()}`;
                 burst.className = 'diwali-burst';
                 burst.style.left = `${startX}px`;
                 burst.style.top = `${endY}px`;
                 document.body.appendChild(burst);
+
+                // 3. Spawn particle firework burst IF triggered by click
+                if (isClick) {
+                  spawnParticleBurst(startX, endY);
+                }
 
                 setTimeout(() => {
                   burst.remove();
@@ -457,14 +554,15 @@
           }
 
           function startAutoRockets() {
-            launchImageRocket();
+            launchImageRocket(undefined, undefined, false);
             const nextInterval = Math.random() * 2500 + 1000;
             setTimeout(startAutoRockets, nextInterval);
           }
           startAutoRockets();
 
+          // Mouse Click Trigger: Launches Rocket + burst.gif + Canvas Particles + boom.mp3
           window.addEventListener('click', (e) => {
-            launchImageRocket(e.clientX, e.clientY);
+            launchImageRocket(e.clientX, e.clientY, true);
           });
         }
       }
