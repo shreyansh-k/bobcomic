@@ -502,10 +502,13 @@
 
           function playBoomSound() {
             const boom = new Audio('boom.mp3');
+            const festiveaudio = new Audio('happydiwali.flac');
+            festiveaudio.currentTime = 0;
             boom.currentTime = 0;
             boom.play().catch(e => console.error("Audio playback blocked:", e));
+            festiveaudio.play().catch(e => console.error("Audio playback blocked:", e));
           }
-
+          
           function launchImageRocket(targetX, targetY, isClick = false) {
             const rocket = document.createElement('img');
             rocket.src = 'rocket.png';
