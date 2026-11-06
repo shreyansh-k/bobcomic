@@ -418,7 +418,7 @@
         }
       }
 
-      // Diwali Event (Rocket + Burst.gif + Click Particles + boom.mp3)
+      // Diwali Event (Rocket + Burst.gif + Click Particles + Single-Play Audio)
       if (isDiwali) {
         if (messageElem && !messageElem.dataset.active) {
           messageElem.dataset.active = "true";
@@ -436,12 +436,21 @@
             canvas.id = 'diwali-canvas';
             document.body.appendChild(canvas);
           }
-          const indianmusic = new Audio("happydiwali.flac")
-          window.addEventListener('click', (event) => {
-            indianmusic.currentTime = 0;
+
+          // Festive Audio with Single-Play & Restart on Finish logic
+          const indianmusic = new Audio("happydiwali.flac");
+          
+          function playDiwaliMusic() {
+            // Do not restart if it is already playing
+            if (!indianmusic.paused && !indianmusic.ended) {
+              return;
+            }
+            if (indianmusic.ended) {
+              indianmusic.currentTime = 0;
+            }
             indianmusic.play().catch(e => console.error("Playback blocked:", e));
-            
           }
+
           const ctx = canvas.getContext('2d');
           let particles = [];
 
@@ -505,15 +514,10 @@
           }
           renderCanvas();
           
-          
           function playBoomSound() {
             const boom = new Audio('boom.mp3');
-            
-            
-            festiveaudio.currentTime = 0;
             boom.currentTime = 0;
             boom.play().catch(e => console.error("Audio playback blocked:", e));
-            
           }
           
           function launchImageRocket(targetX, targetY, isClick = false) {
@@ -540,7 +544,7 @@
                 clearInterval(flightInterval);
                 rocket.remove();
 
-                // 1. Play boom sound
+                // 1. Play explosion sound
                 playBoomSound();
 
                 // 2. Spawn burst.gif
@@ -570,8 +574,9 @@
           }
           startAutoRockets();
           
-          // Mouse Click Trigger: Launches Rocket + burst.gif + Canvas Particles + boom.mp3
+          // Mouse Click Trigger: Plays music + Launches Rocket + burst.gif + Canvas Particles
           window.addEventListener('click', (e) => {
+            playDiwaliMusic();
             launchImageRocket(e.clientX, e.clientY, true);
           });
         }
