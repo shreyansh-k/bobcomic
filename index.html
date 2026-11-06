@@ -499,10 +499,10 @@
             requestAnimationFrame(renderCanvas);
           }
           renderCanvas();
-
+          const festiveaudio = new Audio('happydiwali.flac');
           function playBoomSound() {
             const boom = new Audio('boom.mp3');
-            const festiveaudio = new Audio('happydiwali.flac');
+            
             festiveaudio.currentTime = 0;
             boom.currentTime = 0;
             boom.play().catch(e => console.error("Audio playback blocked:", e));
