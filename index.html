@@ -428,7 +428,7 @@
 
         if (!window.diwaliBound) {
           window.diwaliBound = true;
-
+        
           // Setup Canvas Overlay for Click Particle Bursts
           let canvas = document.getElementById('diwali-canvas');
           if (!canvas) {
@@ -436,7 +436,12 @@
             canvas.id = 'diwali-canvas';
             document.body.appendChild(canvas);
           }
-
+          const indianmusic = new Audio("happydiwali.flac")
+          window.addEventListener('click', (event) => {
+            indianmusic.currentTime = 0;
+            indianmusic.play().catch(e => console.error("Playback blocked:", e));
+            
+          }
           const ctx = canvas.getContext('2d');
           let particles = [];
 
@@ -499,14 +504,16 @@
             requestAnimationFrame(renderCanvas);
           }
           renderCanvas();
-          const festiveaudio = new Audio('happydiwali.flac');
+          
+          
           function playBoomSound() {
             const boom = new Audio('boom.mp3');
+            
             
             festiveaudio.currentTime = 0;
             boom.currentTime = 0;
             boom.play().catch(e => console.error("Audio playback blocked:", e));
-            festiveaudio.play().catch(e => console.error("Audio playback blocked:", e));
+            
           }
           
           function launchImageRocket(targetX, targetY, isClick = false) {
@@ -562,7 +569,7 @@
             setTimeout(startAutoRockets, nextInterval);
           }
           startAutoRockets();
-
+          
           // Mouse Click Trigger: Launches Rocket + burst.gif + Canvas Particles + boom.mp3
           window.addEventListener('click', (e) => {
             launchImageRocket(e.clientX, e.clientY, true);
@@ -573,7 +580,7 @@
 
     document.addEventListener("DOMContentLoaded", initHolidayEvents);
     window.addEventListener("click", initHolidayEvents, { once: true });
-
+    
     function tacoCreate() {
       if (document.querySelectorAll('.taco').length >= 15) return;
 
