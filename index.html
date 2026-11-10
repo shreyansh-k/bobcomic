@@ -161,7 +161,7 @@
   <main>
     <h2 id="funLabel" style="text-align: center;"></h2>
 
-    <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000;" id="bobimage" alt="Bob's Aura">
+    <img src="bobsaura.png" style="float:left; margin: 10px; vertical-align:middle; border: 2px solid #000; max-width:100%; height:auto; display:block;" id="bobimage" alt="Bob's Aura">
     <h2>Lookie at this cool picture of Bob!</h2>
     <h3>His Aura is UNMATCHED-😎 ✨Welcome to Bob Comix✨</h3>
 
@@ -296,6 +296,7 @@
       <p>Help us make Bob's adventures even better.</p>
       <a href="feedback.htm" class="btn-secondary">Share Your Thoughts</a>
     </section>
+  
   </main>
 
   <footer>
@@ -305,7 +306,12 @@
         <span>Bob Comics Inc</span>
       </div>
       <div class="footer-bottom" id="footer">
-        <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+        <p id="copyright">&copy; 2025 Bob Comics. All rights reserved.</p>
+        <script>
+          const year = new Date().getFullYear();
+          
+          document.getElementById("copyright").innerText = `${year} Bob Comics. All rights reserved.`
+        </script>
       </div>
     </div>
   </footer>
