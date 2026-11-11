@@ -3,33 +3,433 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Official Bob Comic Website</title>
-  <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" href="files/favicon.png" type="image/png">
+  <title>Bob Comic Website</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.jpg" type="image/jpg">
+
+  <style>
+    .taco {
+      position: fixed;
+      font-size: 2rem;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      from {
+        top: -50px;
+        opacity: 1;
+      }
+
+      to {
+        top: var(--fall-bottom);
+        opacity: 1;
+      }
+    }
+
+    .pdf-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      overflow: auto;
+    }
+
+    .pdf-modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pdf-viewer {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      margin: 20px;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      border: 2px solid #333;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .pdf-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      color: #333;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      border: 2px solid #333;
+      border-radius: 50%;
+    }
+
+    .pdf-close:hover {
+      color: white;
+      background: #f44336;
+    }
+
+    .pdf-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-controls button {
+      padding: 10px 15px;
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      cursor: pointer;
+      background: #333;
+      border: none;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .pdf-controls button:hover {
+      background: #555;
+    }
+
+    #pdf-canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .page-info {
+      margin-top: 10px;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+    }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script>
+    function updateFallBottom() {
+      const pageHeight = document.documentElement.scrollHeight;
+      document.documentElement.style.setProperty("--fall-bottom", `${pageHeight - 50}px`);
+    }
+
+    updateFallBottom();
+    window.addEventListener("resize", updateFallBottom);
+
+    function tacoCreate() {
+      const taco = document.createElement("div");
+      const dayEmojis = ["🍨", "🎬", "🌮", "🌀", "🧋", "🍟", "⚽"];
+      const today = new Date();
+      const month = today.getMonth();
+      let emoji = dayEmojis[today.getDay()];
+
+      if (month === 11) {
+        emoji = "❄️";
+      }
+
+      taco.classList.add("taco");
+      taco.innerText = emoji;
+      taco.style.left = `${Math.random() * 100}vw`;
+      taco.style.top = "-50px";
+      taco.addEventListener("animationend", () => taco.remove());
+      document.body.appendChild(taco);
+    }
+
+    let tacosStarted = false;
+
+    function startTacos() {
+      if (!tacosStarted && window.scrollY > 0) {
+        tacosStarted = true;
+        setInterval(tacoCreate, 300);
+        window.removeEventListener("scroll", startTacos);
+      }
+    }
+
+    window.addEventListener("scroll", startTacos);
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js";
+  </script>
 </head>
+
 <body>
-  <h2>Our line of books is down below</h2>
-  <h4>These books are downloadable in PDF format</h4>
-
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST'" id="proButton">Download Lavik The Businessman comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo'" id="proButton">Download Bob is Back in Home comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3'" id="proButton">Download The Stickman Comic!</button>
-  <button onclick="window.location.href='https://drive.google.com/uc?export=download&id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX'" id="proButton">Download Bob is Back in Style comic!</button>
-
-  <h3>Don't wanna download? Try these online links below!</h3>
-  <p><a href="https://drive.google.com/file/d/1vWR2SxiDwgyxnTgeeiHDuLaCzp6SDXST/view?usp=sharing">Read Lavik the Businessman online</a></p>
-  <p><a href="https://drive.google.com/file/d/1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3/view?usp=sharing">Read The Stickman Comic online</a></p>
-  <p><a href="https://drive.google.com/file/d/1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo/view?usp=sharing">Read Bob is Back in Home online</a></p>
-  <p><a href="https://drive.google.com/file/d/19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX/view?usp=sharing">Read Bob is Back in Style online</a></p>
-  <h3>And there's more coming soon!</h3>
-
-  <nav>
-    <a href="index.html">About us</a>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <i class="fas fa-book-open"></i>
+      <span>Bob Comics</span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="home.htm">Comics</a>
+      <a href="games.htm">Games</a>
+      <a href="feedback.htm">Feedback</a>
+      <a href="partnership.html">Partnership</a>
+      <a href="thecrazysection.htm">Get traumatized</a>
+    </div>
   </nav>
-  <header>
-    <h2>Our other comics which are a work in progress</h2>
-    <h5>There are currently no other Bob comics work in progress</h5>
+
+  <header class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Bob Comics</h1>
+      <div class="hero-description">
+        <p class="lead-text">Bob is not your average thief. He's the kind of guy who'd try to rob a bank and get distracted by free pens...</p>
+        <p class="quote">"I just hate being in line" - Bob</p>
+        <p class="tagline">So, lock your cookies🍪, not your doors.</p>
+      </div>
+    </div>
   </header>
+
+  <main>
+    <section class="features">
+      <h2>Read Bob Comics!</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Lavik The Businessman</h3>
+          <a href="#" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('ltb.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>The Fruit World</h3>
+          <a href="https://drive.usercontent.google.com/download?id=1KBT-jace5ZpvOTWfd1xW7-UTRAUhgyZc&export=download&authuser=0&confirm=t&uuid=cc677e6b-e810-4285-bf9e-f359529fc224&at=APcXIO0O2PbOzxHlBPssNlJ7csFY:1770034971389" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('TheFruitWorld.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>✨NEW STORY!!!✨ Choose your own adventure Comic!</h3>
+          <a href="chooseyourownadventure.pdf" class="btn-primary" download>Download</a>
+          <a href="#" onclick="loadPDF('chooseyourownadventure.pdf'); return false;" class="btn-secondary">Read Online</a>
+          <a href="https://forms.gle/oRZjGxuPMxTnQADfA" class="btn-secondary">Activity 1</a>
+          <a href="https://forms.gle/t5QhAPWUfsVGdhBN9" class="btn-secondary">Activty 2</a>
+          <h4>Only do the activite's 𝗮𝗳𝘁𝗲𝗿 𝘆𝗼𝘂'𝘃𝗲 𝗿𝗲𝗮𝗱 𝘁𝗵𝗲 𝗰𝗼𝗺𝗶𝗰!!!</h4>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Bob is Back in Home</h3>
+          <a href="https://drive.usercontent.google.com/download?id=1l4tJytvRl3oXNfAJa3ZPAbKCxrBKPpBo&export=download&authuser=0&confirm=t&uuid=96e56d7b-2830-4d22-a93c-c468a522be0c&at=APcXIO3nH1PB1e3tRdHgG_KHzktW:1770118673355" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('bibb.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Captain William 🧑🏼‍🚀and 🤖🤖The Robodog Invasion🤖🤖</h3>
+          <a href="https://drive.google.com/uc?export=download&id=15lChVa3cLg_yXKQ7AyDojyQHYHTkXtkT" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('CaptainWilliamAndTheRobodogInvasion.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>The Book Of Chapals</h3>
+          <a href="https://drive.usercontent.google.com/download?id=1rlmUYVBZduC0tCiXNq6t_rmugrL_NM4P&export=download&authuser=0&confirm=t&uuid=fe06cad4-4f0c-4b49-9aaa-4a9b4b21b07f&at=APcXIO2PtWMW_mjrWUADoJmUrm7o:1770118373136" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('TBOC.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>The Stickman Comic</h3>
+          <a href="https://drive.usercontent.google.com/download?id=1ZUm7DXz1D_D7gT8QfK4P9zC6pvm9c8a3&export=download&authuser=0&confirm=t&uuid=e7556bec-2ab1-48b8-bdab-8a99d5a238c6&at=APcXIO1yNyJVnii34tF8HVVZFP6E:1770118581217" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('stickman.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Amoungus Vs Zombies (RESTORED)</h3>
+          <a href="Avsz.pdf" class="btn-primary" download>Download</a>
+          <a href="#" onclick="loadPDF('Avsz.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Bob is Back in Style</h3>
+          <a href="https://drive.usercontent.google.com/download?id=19kFIb6zqbze4B1rBCkaeNNOWX1gDMSkX&export=download&authuser=0&confirm=t&uuid=a0932f15-3a45-4041-96b8-4615e01efb32&at=APcXIO1NuTsmtuTkMnl9tEU-h-nf:1770118722959" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('bbis.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+
+        <div class="feature-card">
+          <i class="fas fa-download"></i>
+          <h3>Physics Reimagined</h3>
+          <a href="https://drive.usercontent.google.com/download?id=11SLLlryhFwR4PLc71QmYXpcJ9d37Vl45&export=download&authuser=1&confirm=t&uuid=46e7e785-badc-4c58-94ee-a99028c58778&at=APcXIO2XgnBPjJqlecPid1jCIZMx:1770119527601" class="btn-primary">Download</a>
+          <a href="#" onclick="loadPDF('PhysicsReimagined.pdf'); return false;" class="btn-secondary">Read Online</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedback">
+      <h2>We'd Love Your Feedback!</h2>
+      <p>Help us make Bob's adventures even better.</p>
+      <a href="feedback.htm" class="btn-secondary">Share Your Thoughts</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <i class="fas fa-book-open"></i>
+        <span>Bob Comics Inc</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Bob Comics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="pdf-modal" class="pdf-modal">
+    <div class="pdf-viewer">
+      <span class="pdf-close" onclick="closePDFModal()">&times;</span>
+      <div class="pdf-controls">
+        <button onclick="prevPage()"><i class="fas fa-arrow-left"></i> Prev</button>
+        <button onclick="nextPage()">Next <i class="fas fa-arrow-right"></i></button>
+        <button onclick="zoomOut()"><i class="fas fa-search-minus"></i> Zoom Out</button>
+        <button onclick="zoomIn()"><i class="fas fa-search-plus"></i> Zoom In</button>
+        <button onclick="downloadPDF()"><i class="fas fa-download"></i> Download</button>
+      </div>
+      <canvas id="pdf-canvas"></canvas>
+      <div class="page-info">
+        Page <span id="page-num"></span> of <span id="page-count"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let pdfDoc = null;
+    let pageNum = 1;
+    let pageRendering = false;
+    let pageNumPending = null;
+    let scale = 1.2;
+    let canvas = null;
+    let ctx = null;
+    let currentPDF = "";
+
+    function renderPage(num) {
+      pageRendering = true;
+
+      pdfDoc.getPage(num).then(function (page) {
+        const viewport = page.getViewport({ scale });
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = {
+          canvasContext: ctx,
+          viewport
+        };
+        const renderTask = page.render(renderContext);
+
+        renderTask.promise.then(function () {
+          pageRendering = false;
+
+          if (pageNumPending !== null) {
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        });
+      });
+
+      document.getElementById("page-num").textContent = num;
+    }
+
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    function prevPage() {
+      if (pageNum <= 1) {
+        return;
+      }
+
+      pageNum--;
+      queueRenderPage(pageNum);
+    }
+
+    function nextPage() {
+      if (pageNum >= pdfDoc.numPages) {
+        return;
+      }
+
+      pageNum++;
+      queueRenderPage(pageNum);
+    }
+
+    function zoomIn() {
+      scale += 0.2;
+      queueRenderPage(pageNum);
+    }
+
+    function zoomOut() {
+      scale = Math.max(0.5, scale - 0.2);
+      queueRenderPage(pageNum);
+    }
+
+    function loadPDF(url) {
+      currentPDF = url;
+      canvas = document.getElementById("pdf-canvas");
+      ctx = canvas.getContext("2d");
+
+      document.getElementById("pdf-modal").classList.add("active");
+      pdfjsLib.getDocument(url).promise
+        .then(function (pdfDoc_) {
+          pdfDoc = pdfDoc_;
+          document.getElementById("page-count").textContent = pdfDoc.numPages;
+          pageNum = 1;
+          scale = 1.2;
+          renderPage(pageNum);
+        })
+        .catch(function (error) {
+          console.error("Error loading PDF:", error);
+          alert("Error loading PDF. Please check if the file exists.");
+          closePDFModal();
+        });
+    }
+
+    function closePDFModal() {
+      document.getElementById("pdf-modal").classList.remove("active");
+    }
+
+    window.onclick = function (event) {
+      const modal = document.getElementById("pdf-modal");
+
+      if (event.target === modal) {
+        closePDFModal();
+      }
+    };
+
+    function downloadPDF() {
+      if (currentPDF) {
+        window.open(currentPDF, "_blank");
+      }
+    }
+  </script>
+
+  <script src="easter-eggs.js"></script>
 </body>
 </html>
